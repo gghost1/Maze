@@ -1,4 +1,7 @@
 package backend.academy.game.maze.cell;
 
-public enum CellType {
+enum CellType {
+    START,
+    END,
+    PATH
 }
