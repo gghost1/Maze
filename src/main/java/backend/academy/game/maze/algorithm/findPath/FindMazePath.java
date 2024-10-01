@@ -5,5 +5,5 @@ import it.unimi.dsi.fastutil.Pair;
 import java.util.List;
 
 public interface FindMazePath {
-    List<Pair<Integer, Integer>> find(List<List<Cell>> maze);
+    List<Pair<Integer, Integer>> apply(List<List<Cell>> maze);
 }
