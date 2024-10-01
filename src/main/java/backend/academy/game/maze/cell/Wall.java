@@ -1,4 +1,4 @@
 package backend.academy.game.maze.cell;
 
-public abstract class Cell {
+public class Wall extends Cell {
 }
