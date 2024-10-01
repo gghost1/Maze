@@ -5,6 +5,7 @@ import backend.academy.game.maze.cell.Path;
 import it.unimi.dsi.fastutil.Pair;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PrimsAlgorithm implements CreateMaze {
@@ -24,8 +25,10 @@ public class PrimsAlgorithm implements CreateMaze {
         setInner(x, y);
 
         while (!frontier.isEmpty()) {
+            Collections.shuffle(frontier);
             Pair<Integer, Integer> coordinatesOfFrontier = frontier.remove(secureRandom.nextInt(frontier.size()));
             List<Pair<Integer, Integer>> innerNeighbors = getInnerNeighbors(coordinatesOfFrontier.first(), coordinatesOfFrontier.second());
+            Collections.shuffle(innerNeighbors);
             Pair<Integer, Integer> coordinatesOfNeighbor = innerNeighbors.get(secureRandom.nextInt(innerNeighbors.size()));
             setInner(coordinatesOfFrontier.first(), coordinatesOfFrontier.second());
             Cell cell1 = maze.get(getY(coordinatesOfFrontier.second()))
