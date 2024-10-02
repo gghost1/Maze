@@ -22,10 +22,10 @@ public class PrimsAlgorithmTest {
             maze.add(new ArrayList<>());
             for (int j = 0; j < 9; j++) {
                 if (i % 2 == 0) {
-                    maze.get(i).add(new Wall());
+                    maze.get(i).add(new Wall(i, j));
                 } else {
                     if (j % 2 == 0) {
-                        maze.get(i).add(new Wall());
+                        maze.get(i).add(new Wall(i,j));
                     } else {
                         maze.get(i).add(new Path((j-1)/2, (i-1)/2, CellType.PATH, CellFlorType.GOOD));
                     }
