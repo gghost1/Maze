@@ -1,7 +1,6 @@
 package backend.academy.game.maze.algorithm.generate;
 
 import backend.academy.game.maze.cell.Cell;
-import backend.academy.game.maze.cell.Path;
 import it.unimi.dsi.fastutil.Pair;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ public class PrimsAlgorithm implements CreateMaze {
 
         int x = start.first();
         int y = start.second();
-
         setInner(x, y);
 
         while (!frontier.isEmpty()) {
@@ -31,40 +29,24 @@ public class PrimsAlgorithm implements CreateMaze {
             Collections.shuffle(innerNeighbors);
             Pair<Integer, Integer> coordinatesOfNeighbor = innerNeighbors.get(secureRandom.nextInt(innerNeighbors.size()));
             setInner(coordinatesOfFrontier.first(), coordinatesOfFrontier.second());
-            Cell cell1 = getCell(coordinatesOfFrontier.first(), coordinatesOfFrontier.second(), maze);
-            Cell cell2 = getCell(coordinatesOfNeighbor.first(), coordinatesOfNeighbor.second(), maze);
-            if (cell1 instanceof Path && cell2 instanceof Path) {
-                ((Path) cell1).addNext(((Path) cell2).x(), ((Path) cell2).y());
-                ((Path) cell2).addNext(((Path) cell1).x(), ((Path) cell1).y());
-                maze.get(getY(coordinatesOfFrontier.second()) - (coordinatesOfFrontier.second() - coordinatesOfNeighbor.second()))
-                    .set(getX(coordinatesOfFrontier.first()) - (coordinatesOfFrontier.first() - coordinatesOfNeighbor.first()), null);
-            }
+            connectCells(maze, coordinatesOfFrontier, coordinatesOfNeighbor);
         }
-
         return maze;
     }
 
     private List<Pair<Integer, Integer>> getInnerNeighbors(int x, int y) {
         List<Pair<Integer, Integer>> neighbors = new ArrayList<>();
-        if (x > 0) {
-            if (utilMaze.get(y).get(x - 1) == 0) {
+        if ((x > 0) && (utilMaze.get(y).get(x - 1) == 0)) {
                 neighbors.add(Pair.of(x - 1, y));
-            }
         }
-        if (y > 0) {
-            if (utilMaze.get(y - 1).get(x) == 0) {
-                neighbors.add(Pair.of(x, y - 1));
-            }
+        if ((y > 0) && utilMaze.get(y - 1).get(x) == 0) {
+            neighbors.add(Pair.of(x, y - 1));
         }
-        if (x < utilMaze.getFirst().size() - 1) {
-            if (utilMaze.get(y).get(x + 1) == 0) {
-                neighbors.add(Pair.of(x + 1, y));
-            }
+        if ((x < utilMaze.getFirst().size() - 1) && utilMaze.get(y).get(x + 1) == 0) {
+            neighbors.add(Pair.of(x + 1, y));
         }
-        if (y < utilMaze.size() - 1) {
-            if (utilMaze.get(y + 1).get(x) == 0) {
-                neighbors.add(Pair.of(x, y + 1));
-            }
+        if ((y < utilMaze.size() - 1) && utilMaze.get(y + 1).get(x) == 0) {
+            neighbors.add(Pair.of(x, y + 1));
         }
         return neighbors;
     }
