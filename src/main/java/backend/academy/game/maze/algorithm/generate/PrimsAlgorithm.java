@@ -31,10 +31,8 @@ public class PrimsAlgorithm implements CreateMaze {
             Collections.shuffle(innerNeighbors);
             Pair<Integer, Integer> coordinatesOfNeighbor = innerNeighbors.get(secureRandom.nextInt(innerNeighbors.size()));
             setInner(coordinatesOfFrontier.first(), coordinatesOfFrontier.second());
-            Cell cell1 = maze.get(getY(coordinatesOfFrontier.second()))
-                .get(getX(coordinatesOfFrontier.first()));
-            Cell cell2 = maze.get(getY(coordinatesOfNeighbor.second()))
-                .get(getX(coordinatesOfNeighbor.first()));
+            Cell cell1 = getCell(coordinatesOfFrontier.first(), coordinatesOfFrontier.second(), maze);
+            Cell cell2 = getCell(coordinatesOfNeighbor.first(), coordinatesOfNeighbor.second(), maze);
             if (cell1 instanceof Path && cell2 instanceof Path) {
                 ((Path) cell1).addNext(((Path) cell2).x(), ((Path) cell2).y());
                 ((Path) cell2).addNext(((Path) cell1).x(), ((Path) cell1).y());
@@ -44,17 +42,6 @@ public class PrimsAlgorithm implements CreateMaze {
         }
 
         return maze;
-    }
-
-    private List<List<Integer>> initUtilMaze(int width, int height) {
-        List<List<Integer>> innerUtilMaze = new ArrayList<>();
-        for (int i = 0; i < height; i++) {
-            innerUtilMaze.add(new ArrayList<>());
-            for (int j = 0; j < width; j++) {
-                innerUtilMaze.get(i).add(-1);
-            }
-        }
-        return innerUtilMaze;
     }
 
     private List<Pair<Integer, Integer>> getInnerNeighbors(int x, int y) {

@@ -1,6 +1,7 @@
 package backend.academy.algorithm;
 
 import backend.academy.game.maze.algorithm.generate.PrimsAlgorithm;
+import backend.academy.game.maze.algorithm.generate.RecursiveBacktrackerAlgorithm;
 import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.CellFlorType;
 import backend.academy.game.maze.cell.CellType;
@@ -15,7 +16,7 @@ public class PrimsAlgorithmTest {
 
     @Test
     public void PrimsAlgorithmTest() {
-        PrimsAlgorithm primsAlgorithm = new PrimsAlgorithm();
+        RecursiveBacktrackerAlgorithm primsAlgorithm = new RecursiveBacktrackerAlgorithm();
         List<List<Cell>> maze = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             maze.add(new ArrayList<>());
@@ -33,6 +34,8 @@ public class PrimsAlgorithmTest {
         }
         List<List<Cell>> maze2 = primsAlgorithm.apply(maze, Pair.of(0,0), Pair.of(3,3));
 // correct
+
+
     }
 
 }
