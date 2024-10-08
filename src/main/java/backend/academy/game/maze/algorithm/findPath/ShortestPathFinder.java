@@ -23,8 +23,8 @@ public class ShortestPathFinder implements FindMazePath {
         Pair<Integer, Integer> end
     ) {
         this.maze = mazeInput;
-        Cell startCell = maze.get(getY(start.second())).get(getX(start.first()));
-        Cell endCell = maze.get(getY(end.second())).get(getX(end.first()));
+        Cell startCell = getCell(start.first(), start.second(), maze);
+        Cell endCell = getCell(end.first(), end.second(), maze);
 
         Queue<Cell> queue = new LinkedList<>();
         queue.add(startCell);
@@ -42,11 +42,11 @@ public class ShortestPathFinder implements FindMazePath {
             List<Pair<Integer, Integer>> directions = directions();
 
             for (int i = 0; i < directions().size(); i++) {
-                Point to = new Point(cell.x() + directions.get(i).first(), cell.y() + directions.get(i).second());
+                Point to = new Point(getRealX(cell.x() + directions.get(i).first()), getRealY(cell.y() + directions.get(i).second()));
 
                 if (isValidDestination(to, maze.size(), maze.getFirst().size())
                     && moveTo(new Point(cell.x(), cell.y()), directions.get(i))) {
-                    Cell destinationCell = maze.get(getY(to.y())).get(getX(to.x()));
+                    Cell destinationCell = getRealCell(to.x(), to.y(), maze);
                     if (!predecessors.containsKey(destinationCell)) {
                         queue.add(destinationCell);
                         predecessors.put(destinationCell, cell);
@@ -59,16 +59,14 @@ public class ShortestPathFinder implements FindMazePath {
     }
 
     private boolean moveTo(Point from, Pair<Integer, Integer> direction) {
-        int realX = getX(from.x());
-        int realY = getY(from.y());
+        int realX = getRealX(from.x());
+        int realY = getRealY(from.y());
 
-        Cell cellBetween = maze.get(realY+direction.second()).get(realX+direction.first());
+        Cell cellBetween = getRealCell(realX+direction.first(), realY+direction.second(), maze);
         return cellBetween == null;
     }
 
-    private boolean isValidDestination(Point to, int width, int height) {
-        return to.x() >= 0 && to.y() >= 0 && to.x() < width && to.y() < height;
-    }
+
 
     private List<Pair<Integer, Integer>> constructPath(Map<Cell, Cell> predecessors, Cell end) {
         List<Pair<Integer, Integer>> path = new ArrayList<>();

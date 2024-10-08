@@ -25,8 +25,8 @@ public interface CreateMaze extends MazeUtils {
         if (startCell instanceof Path && endCell instanceof Path) {
             ((Path) startCell).addNext(end.first(), end.second());
             ((Path) endCell).addNext(start.first(), start.second());
-            maze.get(getY(start.second()) - (start.second() - end.second()))
-                .set(getX(start.first()) - (start.first() - end.first()), null);
+            maze.get(getRealY(start.second()) - (start.second() - end.second()))
+                .set(getRealX(start.first()) - (start.first() - end.first()), null);
         }
     }
 }
