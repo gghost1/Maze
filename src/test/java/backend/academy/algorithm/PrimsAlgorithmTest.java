@@ -1,5 +1,8 @@
 package backend.academy.algorithm;
 
+import backend.academy.game.maze.algorithm.findPath.ShortestPathFinder;
+import backend.academy.game.maze.algorithm.findPath.FindMazePath;
+import backend.academy.game.maze.algorithm.generate.CreateMaze;
 import backend.academy.game.maze.algorithm.generate.PrimsAlgorithm;
 import backend.academy.game.maze.algorithm.generate.RecursiveBacktrackerAlgorithm;
 import backend.academy.game.maze.cell.Cell;
@@ -16,7 +19,7 @@ public class PrimsAlgorithmTest {
 
     @Test
     public void PrimsAlgorithmTest() {
-        RecursiveBacktrackerAlgorithm primsAlgorithm = new RecursiveBacktrackerAlgorithm();
+        CreateMaze primsAlgorithm = new PrimsAlgorithm();
         List<List<Cell>> maze = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             maze.add(new ArrayList<>());
@@ -34,6 +37,9 @@ public class PrimsAlgorithmTest {
         }
         List<List<Cell>> maze2 = primsAlgorithm.apply(maze, Pair.of(0,0), Pair.of(3,3));
 // correct
+        FindMazePath findMazePath = new ShortestPathFinder();
+
+        findMazePath.apply(maze2, Pair.of(0,0), Pair.of(3,3));
 
 
     }
