@@ -1,5 +1,6 @@
 package backend.academy.algorithm;
 
+import backend.academy.game.maze.algorithm.findPath.DeadEndFiller;
 import backend.academy.game.maze.algorithm.findPath.ShortestPathFinder;
 import backend.academy.game.maze.algorithm.findPath.FindMazePath;
 import backend.academy.game.maze.algorithm.generate.CreateMaze;
@@ -37,7 +38,7 @@ public class PrimsAlgorithmTest {
         }
         List<List<Cell>> maze2 = primsAlgorithm.apply(maze, Pair.of(0,0), Pair.of(3,3));
 // correct
-        FindMazePath findMazePath = new ShortestPathFinder();
+        FindMazePath findMazePath = new DeadEndFiller();
 
         findMazePath.apply(maze2, Pair.of(0,0), Pair.of(3,3));
 
