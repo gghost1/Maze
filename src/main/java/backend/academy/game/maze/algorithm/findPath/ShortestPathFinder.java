@@ -1,5 +1,6 @@
 package backend.academy.game.maze.algorithm.findPath;
 
+import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.Path;
@@ -21,7 +22,7 @@ public class ShortestPathFinder implements FindMazePath {
         List<List<Cell>> mazeInput,
         Pair<Integer, Integer> start,
         Pair<Integer, Integer> end
-    ) {
+    ) throws PathNotFoundException {
         this.maze = mazeInput;
         Cell startCell = getCell(start.first(), start.second(), maze);
         Cell endCell = getCell(end.first(), end.second(), maze);
@@ -55,7 +56,7 @@ public class ShortestPathFinder implements FindMazePath {
 
             }
         }
-        return List.of();
+        throw new PathNotFoundException("");
     }
 
     private boolean moveTo(Point from, Pair<Integer, Integer> direction) {

@@ -1,5 +1,6 @@
 package backend.academy.game.maze.algorithm.findPath;
 
+import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.MazeUtils;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
@@ -7,7 +8,8 @@ import it.unimi.dsi.fastutil.Pair;
 import java.util.List;
 
 public interface FindMazePath extends MazeUtils {
-    List<Pair<Integer, Integer>> apply(List<List<Cell>> maze, Pair<Integer, Integer> start, Pair<Integer, Integer> end);
+    List<Pair<Integer, Integer>> apply(List<List<Cell>> maze, Pair<Integer, Integer> start, Pair<Integer, Integer> end)
+        throws PathNotFoundException;
 
     default List<Pair<Integer, Integer>> directions() {
         return List.of(
