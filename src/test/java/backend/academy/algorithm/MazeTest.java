@@ -1,4 +1,4 @@
-package backend.academy;
+package backend.academy.algorithm;
 
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.Maze;
@@ -11,11 +11,9 @@ import backend.academy.game.maze.algorithm.generate.PrimsAlgorithm;
 import backend.academy.game.maze.algorithm.generate.RecursiveBacktrackerAlgorithm;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
-import it.unimi.dsi.fastutil.Pair;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;

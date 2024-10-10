@@ -9,7 +9,6 @@ import backend.academy.game.maze.cell.CellFlorType;
 import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
-import it.unimi.dsi.fastutil.Pair;
 import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
