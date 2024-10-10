@@ -1,6 +1,7 @@
 package backend.academy.game.maze;
 
 import backend.academy.exception.PathNotFoundException;
+import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.FindMazePath;
 import backend.academy.game.maze.algorithm.generate.CreateMaze;
 import backend.academy.game.maze.cell.Cell;
@@ -30,7 +31,7 @@ public class Maze {
         this.maze = createInitMaze();
     }
 
-    public void generateMaze(Pair<Integer, Integer> start, Pair<Integer, Integer> end) {
+    public void generateMaze(Point start, Point end) {
         maze = createMaze.apply(maze, start, end);
     }
 

@@ -2,6 +2,7 @@ package backend.academy;
 
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.Maze;
+import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.DeadEndFiller;
 import backend.academy.game.maze.algorithm.findPath.FindMazePath;
 import backend.academy.game.maze.algorithm.findPath.ShortestPathFinder;
@@ -41,7 +42,7 @@ public class MazeTest {
     @MethodSource("provideCreateMazeAlgorithms")
     public void generateMazeTest(CreateMaze createMaze) {
         Maze maze = new Maze(3, 3, createMaze, new DeadEndFiller());
-        maze.generateMaze(Pair.of(0,0), Pair.of(3,3));
+        maze.generateMaze(new Point(0, 0), new Point(3, 3));
 
         assertEquals(3*2+3, maze.maze().size());
         assertEquals(3*2+3, maze.maze().getFirst().size());
@@ -59,7 +60,7 @@ public class MazeTest {
     @MethodSource("provideFindMazePathAlgorithms")
     public void solveMazeTest(FindMazePath findMazePath) throws PathNotFoundException {
         Maze maze = new Maze(3, 3, new PrimsAlgorithm(), findMazePath);
-        maze.generateMaze(Pair.of(0, 0), Pair.of(3, 3));
+        maze.generateMaze(new Point(0, 0), new Point(3, 3));
         List<Pair<Integer, Integer>> path = maze.solveMaze(Pair.of(0, 0), Pair.of(3, 3));
 
         assertTrue(path.contains(Pair.of(0, 0)) && path.contains(Pair.of(3, 3)));
