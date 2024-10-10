@@ -18,14 +18,14 @@ public class ShortestPathFinder implements FindMazePath {
     private List<List<Cell>> maze;
 
     @Override
-    public List<Pair<Integer, Integer>> apply(
+    public List<Point> apply(
         List<List<Cell>> mazeInput,
-        Pair<Integer, Integer> start,
-        Pair<Integer, Integer> end
+        Point start,
+        Point end
     ) throws PathNotFoundException {
         this.maze = mazeInput;
-        Cell startCell = getCell(start.first(), start.second(), maze);
-        Cell endCell = getCell(end.first(), end.second(), maze);
+        Cell startCell = getCell(start.x(), start.y(), maze);
+        Cell endCell = getCell(end.x(), end.y(), maze);
 
         Queue<Cell> queue = new LinkedList<>();
         queue.add(startCell);
@@ -40,10 +40,12 @@ public class ShortestPathFinder implements FindMazePath {
                 return constructPath(predecessors, endCell);
             }
 
-            List<Pair<Integer, Integer>> directions = directions();
+            List<Point> directions = directions();
 
             for (int i = 0; i < directions().size(); i++) {
-                Point to = new Point(getRealX(cell.x() + directions.get(i).first()), getRealY(cell.y() + directions.get(i).second()));
+                Point to = new Point(
+                    getRealX(cell.x() + directions.get(i).x()),
+                    getRealY(cell.y() + directions.get(i).y()));
 
                 if (isValidDestination(to, maze.size(), maze.getFirst().size())
                     && moveTo(new Point(cell.x(), cell.y()), directions.get(i))) {
@@ -59,25 +61,25 @@ public class ShortestPathFinder implements FindMazePath {
         throw new PathNotFoundException("");
     }
 
-    private boolean moveTo(Point from, Pair<Integer, Integer> direction) {
+    private boolean moveTo(Point from, Point direction) {
         int realX = getRealX(from.x());
         int realY = getRealY(from.y());
 
-        Cell cellBetween = getRealCell(realX+direction.first(), realY+direction.second(), maze);
+        Cell cellBetween = getRealCell(realX+direction.x(), realY+direction.y(), maze);
         return cellBetween == null;
     }
 
 
 
-    private List<Pair<Integer, Integer>> constructPath(Map<Cell, Cell> predecessors, Cell end) {
-        List<Pair<Integer, Integer>> path = new ArrayList<>();
+    private List<Point> constructPath(Map<Cell, Cell> predecessors, Cell end) {
+        List<Point> path = new ArrayList<>();
         Cell step = end;
 
         while (step != null) {
             if (step instanceof Path) {
                 ((Path) step).setPath();
             }
-            path.add(Pair.of(step.x(), step.y()));
+            path.add(new Point(step.x(), step.y()));
             step = predecessors.get(step);
         }
         Collections.reverse(path);

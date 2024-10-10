@@ -1,12 +1,10 @@
 package backend.academy.game.maze.algorithm.findPath;
 
+import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
-import it.unimi.dsi.fastutil.Pair;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,11 +12,11 @@ import java.util.Set;
 public class DeadEndFiller implements FindMazePath {
 
     @Override
-    public List<Pair<Integer, Integer>> apply(
+    public List<Point> apply(
         List<List<Cell>> maze,
-        Pair<Integer, Integer> start,
-        Pair<Integer, Integer> end
-    ) {
+        Point start,
+        Point end
+    ) throws PathNotFoundException {
 
         List<List<Cell>> mazeInWork = List.copyOf(maze);
 
@@ -29,15 +27,15 @@ public class DeadEndFiller implements FindMazePath {
             for (int i = 1; i < maze.size(); i+=2) {
                 for (int j = 1; j < maze.get(i).size(); j+=2) {
                     Cell current = getRealCell(j, i, mazeInWork);
-                    if (!Pair.of(current.x(), current.y()).equals(end)
-                        && !Pair.of(current.x(), current.y()).equals(start)) {
+                    if (!new Point(current.x(), current.y()).equals(end)
+                        && !new Point(current.x(), current.y()).equals(start)) {
                         if (current instanceof Path) {
-                            Pair<Integer, Integer> validDirection = isDeadEnd(new Point(j, i), mazeInWork);
+                            Point validDirection = isDeadEnd(new Point(j, i), mazeInWork);
                             if (validDirection != null) {
                                 mazeInWork
-                                    .get(i+(validDirection.second()/2))
-                                    .set(j+(validDirection.first()/2),
-                                        new Wall(j+(validDirection.first()/2), i+(validDirection.second()/2)));
+                                    .get(i+(validDirection.y()/2))
+                                    .set(j+(validDirection.x()/2),
+                                        new Wall(j+(validDirection.x()/2), i+(validDirection.y()/2)));
                                 isChanged = false;
                             }
                         }
@@ -51,16 +49,16 @@ public class DeadEndFiller implements FindMazePath {
         return findPath(mazeInWork, start, end);
     }
 
-    private Pair<Integer, Integer> isDeadEnd(Point cell, List<List<Cell>> maze) {
-        List<Pair<Integer, Integer>> directions = realDirections();
-        Pair<Integer, Integer> validDirection = null;
+    private Point isDeadEnd(Point cell, List<List<Cell>> maze) {
+        List<Point> directions = realDirections();
+        Point validDirection = null;
         int validStepCounter = 0;
 
-        for (Pair<Integer, Integer> direction : directions) {
-            Point to = new Point(cell.x() + direction.first(), cell.y() + direction.second());
+        for (Point direction : directions) {
+            Point to = new Point(cell.x() + direction.x(), cell.y() + direction.y());
 
             if (isValidDestination(to, maze.size(), maze.getFirst().size())
-                && getRealCell(to.x()-(direction.first()/2), to.y()-(direction.second()/2), maze) == null) {
+                && getRealCell(to.x()-(direction.x()/2), to.y()-(direction.y()/2), maze) == null) {
                 validDirection = direction;
                 validStepCounter++;
             }
@@ -69,21 +67,21 @@ public class DeadEndFiller implements FindMazePath {
         return validStepCounter == 1 ? validDirection : null;
     }
 
-    private List<Pair<Integer, Integer>> findPath(List<List<Cell>> maze, Pair<Integer, Integer> start, Pair<Integer, Integer> end) {
-        Set<Pair<Integer, Integer>> path = new LinkedHashSet<>();
+    private List<Point> findPath(List<List<Cell>> maze, Point start, Point end) throws PathNotFoundException {
+        Set<Point> path = new LinkedHashSet<>();
 
-        Point endPoint = new Point(getRealX(end.first()), getRealY(end.second()));
-        Point current = new Point(getRealX(start.first()), getRealY(start.second()));
-        path.add(Pair.of(getX(current.x()), getY(current.y())));
+        Point endPoint = new Point(getRealX(end.x()), getRealY(end.y()));
+        Point current = new Point(getRealX(start.x()), getRealY(start.y()));
+        path.add(new Point(getX(current.x()), getY(current.y())));
 
         while (!current.equals(endPoint)) {
             boolean hasStep = false;
-            for (Pair<Integer, Integer> direction : realDirections()) {
-                Point to = new Point(current.x() + direction.first(), current.y() + direction.second());
+            for (Point direction : realDirections()) {
+                Point to = new Point(current.x() + direction.x(), current.y() + direction.y());
                 if (isValidDestination(to, maze.size(), maze.getFirst().size())) {
-                    if (getRealCell(to.x()-direction.first()/2, to.y()-direction.second()/2, maze) == null) {
+                    if (getRealCell(to.x()-direction.x()/2, to.y()-direction.y()/2, maze) == null) {
                         int pathSize = path.size();
-                        path.add(Pair.of(getX(to.x()), getY(to.y())));
+                        path.add(new Point(getX(to.x()), getY(to.y())));
                         if (pathSize != path.size()) {
                             current = to;
                             hasStep = true;
@@ -93,7 +91,7 @@ public class DeadEndFiller implements FindMazePath {
                 }
             }
             if (!hasStep) {
-                break; // exception
+                throw new PathNotFoundException(""); // exception
             }
         }
 

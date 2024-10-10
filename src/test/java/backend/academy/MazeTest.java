@@ -61,9 +61,9 @@ public class MazeTest {
     public void solveMazeTest(FindMazePath findMazePath) throws PathNotFoundException {
         Maze maze = new Maze(3, 3, new PrimsAlgorithm(), findMazePath);
         maze.generateMaze(new Point(0, 0), new Point(3, 3));
-        List<Pair<Integer, Integer>> path = maze.solveMaze(Pair.of(0, 0), Pair.of(3, 3));
+        List<Point> path = maze.solveMaze(new Point(0, 0), new Point(3, 3));
 
-        assertTrue(path.contains(Pair.of(0, 0)) && path.contains(Pair.of(3, 3)));
+        assertTrue(path.contains(new Point(0, 0)) && path.contains(new Point(3, 3)));
     }
 
 }

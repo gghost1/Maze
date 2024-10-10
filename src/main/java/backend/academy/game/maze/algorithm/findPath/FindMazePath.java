@@ -4,27 +4,26 @@ import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.MazeUtils;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
-import it.unimi.dsi.fastutil.Pair;
 import java.util.List;
 
 public interface FindMazePath extends MazeUtils {
-    List<Pair<Integer, Integer>> apply(List<List<Cell>> maze, Pair<Integer, Integer> start, Pair<Integer, Integer> end)
+    List<Point> apply(List<List<Cell>> maze, Point start, Point end)
         throws PathNotFoundException;
 
-    default List<Pair<Integer, Integer>> directions() {
+    default List<Point> directions() {
         return List.of(
-            Pair.of(0, 1),
-            Pair.of(0, -1),
-            Pair.of(1, 0),
-            Pair.of(-1, 0)
+            new Point(0, 1),
+            new Point(0, -1),
+            new Point(1, 0),
+            new Point(-1, 0)
         );
     }
-    default List<Pair<Integer, Integer>> realDirections() {
+    default List<Point> realDirections() {
         return List.of(
-            Pair.of(0, 2),
-            Pair.of(0, -2),
-            Pair.of(2, 0),
-            Pair.of(-2, 0)
+            new Point(0, 2),
+            new Point(0, -2),
+            new Point(2, 0),
+            new Point(-2, 0)
         );
     }
     default boolean isValidDestination(Point to, int width, int height) {

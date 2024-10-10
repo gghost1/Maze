@@ -35,7 +35,7 @@ public class Maze {
         maze = createMaze.apply(maze, start, end);
     }
 
-    public List<Pair<Integer, Integer>> solveMaze(Pair<Integer, Integer> start, Pair<Integer, Integer> end)
+    public List<Point> solveMaze(Point start, Point end)
         throws PathNotFoundException {
         return findMazePath.apply(maze, start, end);
     }
