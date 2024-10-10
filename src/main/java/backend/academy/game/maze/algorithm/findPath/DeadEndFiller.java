@@ -74,7 +74,7 @@ public class DeadEndFiller implements FindMazePath {
 
         Point endPoint = new Point(getRealX(end.first()), getRealY(end.second()));
         Point current = new Point(getRealX(start.first()), getRealY(start.second()));
-        path.add(Pair.of(current.x(), current.y()));
+        path.add(Pair.of(getX(current.x()), getY(current.y())));
 
         while (!current.equals(endPoint)) {
             boolean hasStep = false;
@@ -83,7 +83,7 @@ public class DeadEndFiller implements FindMazePath {
                 if (isValidDestination(to, maze.size(), maze.getFirst().size())) {
                     if (getRealCell(to.x()-direction.first()/2, to.y()-direction.second()/2, maze) == null) {
                         int pathSize = path.size();
-                        path.add(Pair.of(to.x(), to.y()));
+                        path.add(Pair.of(getX(to.x()), getY(to.y())));
                         if (pathSize != path.size()) {
                             current = to;
                             hasStep = true;
