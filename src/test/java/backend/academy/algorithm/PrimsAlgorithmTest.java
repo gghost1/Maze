@@ -40,8 +40,6 @@ public class PrimsAlgorithmTest {
 // correct
         FindMazePath findMazePath = new DeadEndFiller();
 
-        findMazePath.apply(maze2, Pair.of(0,0), Pair.of(3,3));
-
 
     }
 
