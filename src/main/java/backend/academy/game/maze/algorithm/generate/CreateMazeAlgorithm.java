@@ -10,7 +10,7 @@ public enum CreateMazeAlgorithm {
         this.algorithmClass = algorithmClass;
     }
 
-    public Class<? extends CreateMaze> getAlgorithmClass() {
+    public Class<? extends CreateMaze> getAlgorithm() {
         return algorithmClass;
     }
 }
