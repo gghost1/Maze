@@ -1,9 +1,17 @@
 package backend.academy.controller;
 
-import java.util.HashMap;
-import java.util.List;
+import backend.academy.controller.listener.Listener;
+import backend.academy.exception.NotInitializedException;
+import backend.academy.io.CustomOutput;
 
 public abstract class Executable {
+    protected final Listener listener;
+    protected final CustomOutput output;
+
+    protected Executable() throws NotInitializedException {
+        listener = Listener.getInstance();
+        output = CustomOutput.getInstance();
+    }
 
     abstract void execute();
 }
