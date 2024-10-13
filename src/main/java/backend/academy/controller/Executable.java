@@ -13,5 +13,5 @@ public abstract class Executable {
         output = CustomOutput.getInstance();
     }
 
-    abstract void execute();
+    public abstract void execute();
 }

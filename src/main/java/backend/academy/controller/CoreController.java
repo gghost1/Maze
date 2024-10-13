@@ -11,15 +11,14 @@ public class CoreController extends Executable {
     @Getter
     private final CoreProcess coreProcess;
 
-
-    protected CoreController(SettingsProcess settingsProcess)
+    public CoreController(SettingsProcess settingsProcess)
         throws NotInitializedException, InvocationTargetException, NoSuchMethodException, InstantiationException,
         IllegalAccessException {
         coreProcess = new CoreProcess(settingsProcess);
     }
 
     @Override
-    void execute() {
-
+    public void execute() {
+        // TODO add output in CoreController
     }
 }
