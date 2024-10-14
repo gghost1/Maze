@@ -10,6 +10,14 @@ public enum FindMazePathAlgorithm {
         this.algorithmClass = algorithmClass;
     }
 
+    public static FindMazePathAlgorithm valueOf(Class<? extends FindMazePath> algorithmClass) {
+        return switch (algorithmClass.getSimpleName()) {
+            case "DeadEndFiller" -> DEAD_END_FILLER;
+            case "ShortestPathFinder" -> SHORTEST_PATH_FINDER;
+            default -> null;
+        };
+    }
+
     public Class<? extends FindMazePath> getAlgorithm() {
         return algorithmClass;
     }

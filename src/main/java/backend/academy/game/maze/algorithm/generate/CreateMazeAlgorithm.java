@@ -10,6 +10,15 @@ public enum CreateMazeAlgorithm {
         this.algorithmClass = algorithmClass;
     }
 
+    public static CreateMazeAlgorithm valueOf(Class<? extends CreateMaze> algorithmClass) {
+        return switch (algorithmClass.getSimpleName()) {
+            case "PrimsAlgorithm" -> PRIMS;
+            case "RecursiveBacktrackerAlgorithm" -> RECURSIVE_BACKTRACKER;
+            default -> null;
+        };
+    }
+
+
     public Class<? extends CreateMaze> getAlgorithm() {
         return algorithmClass;
     }
