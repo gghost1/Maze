@@ -24,6 +24,10 @@ public class CustomInput {
         return instance;
     }
 
+    public static void reset() {
+        instance = null;
+    }
+
     private CustomInput(Reader reader) {
         this.reader = new BufferedReader(reader);
     }
