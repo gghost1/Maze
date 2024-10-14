@@ -2,8 +2,10 @@ package backend.academy.game.process;
 
 import backend.academy.controller.MazeGenerationController;
 import backend.academy.controller.MazeSolvingController;
+import backend.academy.exception.IllegalSettingParameter;
 import backend.academy.exception.NotInitializedException;
 import backend.academy.exception.PathNotFoundException;
+import backend.academy.exception.UnsuccessfulPreviousProcess;
 import backend.academy.game.maze.Maze;
 import backend.academy.game.process.maze.MazeGenerationProcess;
 import backend.academy.game.process.maze.MazeProcess;
@@ -21,6 +23,12 @@ public class CoreProcess {
             InstantiationException,
             IllegalAccessException
     {
+        try {
+            settingsProcess.isValid();
+        } catch (IllegalSettingParameter e) {
+            throw new UnsuccessfulPreviousProcess("", e);
+            // TODO add exception message
+        }
         this.settingsProcess = settingsProcess;
         this.maze = new MazeProcess(new Maze(
             settingsProcess.mazeWidth(),
