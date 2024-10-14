@@ -1,4 +1,23 @@
 package backend.academy.io.language.dictionary;
 
-public class RuDictionary {
+import backend.academy.io.language.Dictionary;
+import backend.academy.io.language.LanguageManager;
+import java.util.HashMap;
+import java.util.List;
+
+public class RuDictionary implements Dictionary {
+
+    private final HashMap<String, String> dictionary;
+
+    public RuDictionary(List<String> keys, List<String> values) {
+        dictionary = new HashMap<>();
+        for (int i = 0; i < keys.size(); i++) {
+            dictionary.put(keys.get(i), values.get(i));
+        }
+    }
+
+    @Override
+    public String getString(String string) {
+        return dictionary.get(string);
+    }
 }
