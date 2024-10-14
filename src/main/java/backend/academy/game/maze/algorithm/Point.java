@@ -10,14 +10,6 @@ public class Point {
         this.coordinates = Pair.of(x, y);
     }
 
-    public Point(Pair<Integer, Integer> coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public Point(Point point) {
-        this.coordinates = Pair.of(point.x(), point.y());
-    }
-
     public int x() {
         return coordinates.first();
     }
