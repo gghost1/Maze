@@ -1,14 +1,14 @@
 package backend.academy.algorithm.processTest;
 
-import backend.academy.controller.listener.Listener;
 import backend.academy.exception.UnsuccessfulPreviousProcess;
 import backend.academy.game.maze.algorithm.Point;
-import backend.academy.game.maze.algorithm.findPath.DeadEndFiller;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
 import backend.academy.game.process.CoreProcess;
 import backend.academy.game.process.SettingsProcess;
+import backend.academy.io.CustomInput;
 import backend.academy.io.CustomOutput;
+import backend.academy.io.language.LanguageManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.InputStreamReader;
@@ -17,14 +17,14 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CoreProcessTest {
 
     @BeforeEach
     public void setUp() {
-        Listener.getInstance(new InputStreamReader(System.in, StandardCharsets.UTF_8));
+        LanguageManager.getDictionary("en");
+        CustomInput.getInstance(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         CustomOutput.getInstance(new PrintWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8)));
     }
 
