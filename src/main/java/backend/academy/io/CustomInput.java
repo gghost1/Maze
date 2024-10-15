@@ -32,7 +32,7 @@ public class CustomInput {
         this.reader = new BufferedReader(reader);
     }
 
-    public String readInput() {
+    public String readInputLine() {
         try {
             String input = reader.readLine();
             while (input == null) {
