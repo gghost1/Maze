@@ -18,7 +18,7 @@ public class MainTest {
     @Test
     public void mainEngTest() {
         CustomInput.reset();
-        CustomInput.getInstance(new StringReader("5\n5\n0 0\n5 5\n0\n0\n1\n1"));
+        CustomInput.getInstance(new StringReader("5\n5\n0 0\n4 4\n0\n0\n1\n1"));
         CustomOutput.getInstance(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
         LanguageManager.getDictionary(Language.en.name());
         try {
@@ -32,7 +32,7 @@ public class MainTest {
     @Test
     public void mainRuTest() {
         CustomInput.reset();
-        CustomInput.getInstance(new StringReader("5\n5\n0 0\n5 5\n0\n0\n1\n1"));
+        CustomInput.getInstance(new StringReader("5\n5\n0 0\n4 4\n0\n0\n1\n1"));
         CustomOutput.getInstance(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
         LanguageManager.getDictionary(Language.ru.name());
         try {

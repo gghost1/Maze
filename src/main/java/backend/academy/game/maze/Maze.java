@@ -9,9 +9,9 @@ import backend.academy.game.maze.cell.CellFlorType;
 import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
-import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 public class Maze {
     @Getter
@@ -41,19 +41,19 @@ public class Maze {
 
     private List<List<Cell>> createInitMaze() {
         List<List<Cell>> initMaze = new ArrayList<>();
-        for (int i = 0; i < height*2+3; i++) {
+        for (int i = 0; i < height * 2 + 1; i++) {
             List<Cell> row = new ArrayList<>();
-            if (i%2 == 0) {
-                for (int j = 0; j < width*2+3; j++) {
+            if (i % 2 == 0) {
+                for (int j = 0; j < width * 2 + 1; j++) {
                     row.add(new Wall(j, i));
                 }
                 initMaze.add(row);
             } else {
-                for (int j = 0; j < width*2+3; j++) {
-                    if (j%2 == 0) {
+                for (int j = 0; j < width * 2 + 1; j++) {
+                    if (j % 2 == 0) {
                         row.add(new Wall(j, i));
                     } else {
-                        row.add(new Path(j/2, i/2, CellType.PATH, CellFlorType.GOOD));
+                        row.add(new Path(j / 2, i / 2, CellType.PATH, CellFlorType.GOOD));
                     }
                 }
                 initMaze.add(row);

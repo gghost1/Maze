@@ -28,8 +28,8 @@ public class MazeTest {
     public void mazeCreationTest() {
         Maze maze = new Maze(3, 3, new PrimsAlgorithm(), new DeadEndFiller());
 
-        assertEquals(3*2+3, maze.maze().size());
-        assertEquals(3*2+3, maze.maze().getFirst().size());
+        assertEquals(3*2+1, maze.maze().size());
+        assertEquals(3*2+1, maze.maze().getFirst().size());
         assertInstanceOf(Wall.class, maze.maze().getFirst().getFirst());
         assertInstanceOf(Path.class, maze.maze().get(1).get(1));
     }
@@ -38,14 +38,14 @@ public class MazeTest {
     @MethodSource("provideCreateMazeAlgorithms")
     public void generateMazeTest(CreateMaze createMaze) {
         Maze maze = new Maze(3, 3, createMaze, new DeadEndFiller());
-        maze.generateMaze(new Point(0, 0), new Point(3, 3));
+        maze.generateMaze(new Point(0, 0), new Point(2, 2));
 
-        assertEquals(3*2+3, maze.maze().size());
-        assertEquals(3*2+3, maze.maze().getFirst().size());
+        assertEquals(3*2+1, maze.maze().size());
+        assertEquals(3*2+1, maze.maze().getFirst().size());
         assertInstanceOf(Wall.class, maze.maze().getFirst().getFirst());
         assertInstanceOf(Path.class, maze.maze().get(1).get(1));
         assertTrue(maze.maze().get(1).get(2) == null || maze.maze().get(2).get(1) == null);
-        assertTrue(maze.maze().get(3*3-2).get(3*3-3) == null || maze.maze().get(3*3-3).get(3*3-2) == null);
+        assertTrue(maze.maze().get(3*2-1).get(3*2-2) == null || maze.maze().get(3*2-2).get(3*2-1) == null);
     }
 
     @ParameterizedTest
@@ -58,10 +58,10 @@ public class MazeTest {
     @MethodSource("provideFindMazePathAlgorithms")
     public void solveMazeTest(FindMazePath findMazePath) throws PathNotFoundException {
         Maze maze = new Maze(3, 3, new PrimsAlgorithm(), findMazePath);
-        maze.generateMaze(new Point(0, 0), new Point(3, 3));
-        List<Point> path = maze.solveMaze(new Point(0, 0), new Point(3, 3));
+        maze.generateMaze(new Point(0, 0), new Point(2, 2));
+        List<Point> path = maze.solveMaze(new Point(0, 0), new Point(2, 2));
 
-        assertTrue(path.contains(new Point(0, 0)) && path.contains(new Point(3, 3)));
+        assertTrue(path.contains(new Point(0, 0)) && path.contains(new Point(2, 2)));
     }
 
     @ParameterizedTest

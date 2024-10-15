@@ -37,18 +37,18 @@ public class MazeControllerTest {
                 new MazeGenerationProcess(
                     new MazeProcess(
                         new Maze(5, 5, new PrimsAlgorithm(), new ShortestPathFinder()),
-                        new MazeProcess.MazeSettings(new Point(0,0), new Point(5,5)))));
+                        new MazeProcess.MazeSettings(new Point(0,0), new Point(4,4)))));
         mazeGenerationController.execute();
     }
 
     @Test
     public void executeSolvingTest() throws NotInitializedException {
         Maze maze = new Maze(5, 5, new PrimsAlgorithm(), new DeadEndFiller());
-        maze.generateMaze(new Point(0,0), new Point(5,5));
+        maze.generateMaze(new Point(0,0), new Point(4,4));
         MazeSolvingController mazeSolvingController =
             new MazeSolvingController(
                 new MazeSolvingProcess(
-                    new MazeProcess(maze, new MazeProcess.MazeSettings(new Point(0,0), new Point(5,5)))));
+                    new MazeProcess(maze, new MazeProcess.MazeSettings(new Point(0,0), new Point(4,4)))));
         mazeSolvingController.execute();
     }
 

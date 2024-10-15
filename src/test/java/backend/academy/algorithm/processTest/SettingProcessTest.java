@@ -47,7 +47,8 @@ public class SettingProcessTest {
             new Point(-1, 0),
             new Point(0, -1),
             new Point(6, 0),
-            new Point(0, 6)
+            new Point(0, 6),
+            new Point(5, 5)
         );
     }
 
