@@ -18,6 +18,14 @@ public enum FindMazePathAlgorithm {
         };
     }
 
+    @Override
+    public String toString() {
+        return switch (this) {
+            case DEAD_END_FILLER -> "Dead end filler";
+            case SHORTEST_PATH_FINDER -> "Shortest path finder";
+        };
+    }
+
     public Class<? extends FindMazePath> getAlgorithm() {
         return algorithmClass;
     }

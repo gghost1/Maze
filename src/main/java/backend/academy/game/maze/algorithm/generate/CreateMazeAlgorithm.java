@@ -18,6 +18,13 @@ public enum CreateMazeAlgorithm {
         };
     }
 
+    @Override
+    public String toString() {
+        return switch (this) {
+            case PRIMS -> "Prims";
+            case RECURSIVE_BACKTRACKER -> "Recursive back tracker";
+        };
+    }
 
     public Class<? extends CreateMaze> getAlgorithm() {
         return algorithmClass;
