@@ -3,13 +3,19 @@ package backend.academy.game.maze.algorithm.findPath;
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
+import backend.academy.game.maze.cell.CellFlorType;
+import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
+import org.checkerframework.checker.units.qual.C;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 public class DeadEndFiller implements FindMazePath {
+
+    private List<List<Cell>> maze;
 
     @Override
     public List<Point> apply(
@@ -17,8 +23,22 @@ public class DeadEndFiller implements FindMazePath {
         Point start,
         Point end
     ) throws PathNotFoundException {
+        this.maze = maze;
+        List<List<Cell>> mazeInWork = new ArrayList<>();
 
-        List<List<Cell>> mazeInWork = List.copyOf(maze);
+        for (List<Cell> row : maze) {
+            List<Cell> newRow = new ArrayList<>();
+            for (Cell cell : row) {
+                if (cell instanceof Wall) {
+                    newRow.add(new Wall(cell.x(), cell.y()));
+                } else if (cell instanceof Path) {
+                    newRow.add(new Path(cell.x(), cell.y(), CellType.PATH, CellFlorType.GOOD));
+                } else {
+                    newRow.add(null);
+                }
+            }
+            mazeInWork.add(newRow);
+        }
 
         boolean isChanged = false;
 
@@ -39,8 +59,6 @@ public class DeadEndFiller implements FindMazePath {
                                 isChanged = false;
                             }
                         }
-                    } else {
-                        System.out.println();
                     }
                 }
             }
@@ -73,6 +91,10 @@ public class DeadEndFiller implements FindMazePath {
         Point endPoint = new Point(getRealX(end.x()), getRealY(end.y()));
         Point current = new Point(getRealX(start.x()), getRealY(start.y()));
         path.add(new Point(getX(current.x()), getY(current.y())));
+        Cell cell = getRealCell(current.x(), current.y(), this.maze);
+        if (cell instanceof Path) {
+            ((Path) cell).setPath();
+        }
 
         while (!current.equals(endPoint)) {
             boolean hasStep = false;
@@ -82,6 +104,10 @@ public class DeadEndFiller implements FindMazePath {
                     if (getRealCell(to.x()-direction.x()/2, to.y()-direction.y()/2, maze) == null) {
                         int pathSize = path.size();
                         path.add(new Point(getX(to.x()), getY(to.y())));
+                        cell = getRealCell(to.x(), to.y(), this.maze);
+                        if (cell instanceof Path) {
+                            ((Path) cell).setPath();
+                        }
                         if (pathSize != path.size()) {
                             current = to;
                             hasStep = true;
