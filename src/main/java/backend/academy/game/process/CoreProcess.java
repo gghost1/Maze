@@ -21,13 +21,13 @@ public class CoreProcess {
         throws NoSuchMethodException,
             InvocationTargetException,
             InstantiationException,
-            IllegalAccessException
+            IllegalAccessException,
+            UnsuccessfulPreviousProcess
     {
         try {
             settingsProcess.isValid();
         } catch (IllegalSettingParameter e) {
             throw new UnsuccessfulPreviousProcess("", e);
-            // TODO add exception message
         }
         this.settingsProcess = settingsProcess;
         this.maze = new MazeProcess(new Maze(
