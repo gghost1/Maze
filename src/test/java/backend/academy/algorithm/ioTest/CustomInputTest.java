@@ -33,6 +33,6 @@ public class CustomInputTest {
     public void inputTest() {
         CustomInput.reset();
         CustomInput customInput = CustomInput.getInstance(new StringReader("test"));
-        assertEquals("test", customInput.readInput());
+        assertEquals("test", customInput.readInputLine());
     }
 }
