@@ -4,7 +4,6 @@ import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.Path;
-import it.unimi.dsi.fastutil.Pair;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -65,7 +64,7 @@ public class ShortestPathFinder implements FindMazePath {
         int realX = getRealX(from.x());
         int realY = getRealY(from.y());
 
-        Cell cellBetween = getRealCell(realX+direction.x(), realY+direction.y(), maze);
+        Cell cellBetween = getRealCell(realX + direction.x(), realY + direction.y(), maze);
         return cellBetween == null;
     }
 

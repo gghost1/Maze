@@ -7,7 +7,6 @@ import backend.academy.game.maze.cell.CellFlorType;
 import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
-import org.checkerframework.checker.units.qual.C;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -44,8 +43,8 @@ public class DeadEndFiller implements FindMazePath {
 
         while (!isChanged) {
             isChanged = true;
-            for (int i = 1; i < maze.size(); i+=2) {
-                for (int j = 1; j < maze.get(i).size(); j+=2) {
+            for (int i = 1; i < maze.size(); i += 2) {
+                for (int j = 1; j < maze.get(i).size(); j += 2) {
                     Cell current = getRealCell(j, i, mazeInWork);
                     if (!new Point(current.x(), current.y()).equals(end)
                         && !new Point(current.x(), current.y()).equals(start)) {
@@ -53,9 +52,9 @@ public class DeadEndFiller implements FindMazePath {
                             Point validDirection = isDeadEnd(new Point(j, i), mazeInWork);
                             if (validDirection != null) {
                                 mazeInWork
-                                    .get(i+(validDirection.y()/2))
-                                    .set(j+(validDirection.x()/2),
-                                        new Wall(j+(validDirection.x()/2), i+(validDirection.y()/2)));
+                                    .get(i + (validDirection.y() / 2))
+                                    .set(j + (validDirection.x() / 2),
+                                        new Wall(j + (validDirection.x() / 2), i + (validDirection.y() / 2)));
                                 isChanged = false;
                             }
                         }
@@ -76,7 +75,7 @@ public class DeadEndFiller implements FindMazePath {
             Point to = new Point(cell.x() + direction.x(), cell.y() + direction.y());
 
             if (isValidDestination(to, maze.size(), maze.getFirst().size())
-                && getRealCell(to.x()-(direction.x()/2), to.y()-(direction.y()/2), maze) == null) {
+                && getRealCell(to.x() - (direction.x() / 2), to.y() - (direction.y() / 2), maze) == null) {
                 validDirection = direction;
                 validStepCounter++;
             }
@@ -101,7 +100,7 @@ public class DeadEndFiller implements FindMazePath {
             for (Point direction : realDirections()) {
                 Point to = new Point(current.x() + direction.x(), current.y() + direction.y());
                 if (isValidDestination(to, maze.size(), maze.getFirst().size())) {
-                    if (getRealCell(to.x()-direction.x()/2, to.y()-direction.y()/2, maze) == null) {
+                    if (getRealCell(to.x() - direction.x() / 2, to.y() - direction.y() / 2, maze) == null) {
                         int pathSize = path.size();
                         path.add(new Point(getX(to.x()), getY(to.y())));
                         cell = getRealCell(to.x(), to.y(), this.maze);
@@ -117,7 +116,7 @@ public class DeadEndFiller implements FindMazePath {
                 }
             }
             if (!hasStep) {
-                throw new PathNotFoundException(""); // exception
+                throw new PathNotFoundException("");
             }
         }
 

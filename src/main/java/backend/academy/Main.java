@@ -6,12 +6,11 @@ import backend.academy.io.CustomInput;
 import backend.academy.io.CustomOutput;
 import backend.academy.io.language.Language;
 import backend.academy.io.language.LanguageManager;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j @UtilityClass
 public class Main {
@@ -24,7 +23,7 @@ public class Main {
             mainController.execute();
         } catch (NotInitializedException e) {
             log.error(e.getMessage());
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 }

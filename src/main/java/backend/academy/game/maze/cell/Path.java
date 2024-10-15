@@ -1,9 +1,9 @@
 package backend.academy.game.maze.cell;
 
 import it.unimi.dsi.fastutil.Pair;
-import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 @Getter
 public class Path extends Cell {
@@ -19,18 +19,7 @@ public class Path extends Cell {
         this.next = new ArrayList<>();
     }
 
-    public void addNext(int x, int y) {
-        if (next.size() < 4) {
-            next.add(Pair.of(x, y));
-        }
-    }
-
     public void setPath() {
         isPath = true;
     }
-
-    public void resetPath() {
-        isPath = false;
-    }
-
 }

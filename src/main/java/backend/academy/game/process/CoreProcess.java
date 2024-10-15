@@ -4,7 +4,6 @@ import backend.academy.controller.MazeGenerationController;
 import backend.academy.controller.MazeSolvingController;
 import backend.academy.exception.IllegalSettingParameter;
 import backend.academy.exception.NotInitializedException;
-import backend.academy.exception.PathNotFoundException;
 import backend.academy.exception.UnsuccessfulPreviousProcess;
 import backend.academy.game.maze.Maze;
 import backend.academy.game.process.maze.MazeGenerationProcess;
@@ -22,8 +21,7 @@ public class CoreProcess {
             InvocationTargetException,
             InstantiationException,
             IllegalAccessException,
-            UnsuccessfulPreviousProcess
-    {
+            UnsuccessfulPreviousProcess {
         try {
             settingsProcess.isValid();
         } catch (IllegalSettingParameter e) {

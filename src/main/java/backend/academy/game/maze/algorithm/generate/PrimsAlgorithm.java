@@ -2,7 +2,6 @@ package backend.academy.game.maze.algorithm.generate;
 
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
-import it.unimi.dsi.fastutil.Pair;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;

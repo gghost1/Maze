@@ -2,8 +2,8 @@ package backend.academy.controller;
 
 import backend.academy.exception.NotInitializedException;
 import backend.academy.exception.UnsuccessfulPreviousProcess;
-import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.InvocationTargetException;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j public class MainController extends Executable {
 
@@ -29,7 +29,11 @@ import java.lang.reflect.InvocationTargetException;
                     done = false;
                 }
             }
-        } catch (NotInitializedException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+        } catch (NotInitializedException
+                 | InvocationTargetException
+                 | NoSuchMethodException
+                 | InstantiationException
+                 | IllegalAccessException e) {
             output.writeOutput(dictionary.getString("Something went wrong"));
             log.error(e.getMessage());
             throw new RuntimeException(e);

@@ -1,13 +1,14 @@
 package backend.academy.controller;
 
+import backend.academy.StaticVariables;
 import backend.academy.exception.NotInitializedException;
 import backend.academy.exception.UnsuccessfulPreviousProcess;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
 import backend.academy.game.process.SettingsProcess;
-import lombok.Getter;
 import java.security.SecureRandom;
+import lombok.Getter;
 
 @Getter
 public class SettingsController extends Executable {
@@ -23,7 +24,7 @@ public class SettingsController extends Executable {
         try {
             settingsProcess.mazeWidth(Integer.parseInt(input));
             done = true;
-        } catch (NumberFormatException _) {
+        } catch (NumberFormatException e) {
 
         }
         return done;
@@ -34,7 +35,7 @@ public class SettingsController extends Executable {
         try {
             settingsProcess.mazeHeight(Integer.parseInt(input));
             done = true;
-        } catch (NumberFormatException _) {
+        } catch (NumberFormatException e) {
 
         }
         return done;
@@ -48,7 +49,7 @@ public class SettingsController extends Executable {
                 Integer.parseInt(input2))
             );
             done = true;
-        } catch (NumberFormatException _) {
+        } catch (NumberFormatException e) {
 
         }
         return done;
@@ -62,7 +63,7 @@ public class SettingsController extends Executable {
                 Integer.parseInt(input2))
             );
             done = true;
-        } catch (NumberFormatException _) {
+        } catch (NumberFormatException e) {
 
         }
         return done;
@@ -72,9 +73,12 @@ public class SettingsController extends Executable {
         boolean done;
         int number;
         try {
-            number = Integer.parseInt(input) -1;
+            number = Integer.parseInt(input) - 1;
             if (number == -1) {
-                settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.values()[new SecureRandom().nextInt(CreateMazeAlgorithm.values().length)]);
+                settingsProcess
+                    .createMazeAlgorithm(
+                        CreateMazeAlgorithm
+                            .values()[new SecureRandom().nextInt(CreateMazeAlgorithm.values().length)]);
                 done = true;
             } else if (number < -1 || number >= FindMazePathAlgorithm.values().length) {
                 done = false;
@@ -82,10 +86,13 @@ public class SettingsController extends Executable {
                 settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.values()[number]);
                 done = true;
             }
-        } catch (NumberFormatException _) {
+        } catch (NumberFormatException e) {
             done = true;
-            if (input.trim().toLowerCase().contains("random")) {
-                settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.values()[new SecureRandom().nextInt(CreateMazeAlgorithm.values().length)]);
+            if (input.trim().toLowerCase().contains(StaticVariables.RANDOM())) {
+                settingsProcess
+                    .createMazeAlgorithm(
+                        CreateMazeAlgorithm
+                            .values()[new SecureRandom().nextInt(CreateMazeAlgorithm.values().length)]);
             } else {
                 switch (input.trim().toLowerCase()) {
                     case "prims":
@@ -106,9 +113,12 @@ public class SettingsController extends Executable {
         boolean done;
         int number;
         try {
-            number = Integer.parseInt(input) -1;
+            number = Integer.parseInt(input) - 1;
             if (number == -1) {
-                settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.values()[new SecureRandom().nextInt(FindMazePathAlgorithm.values().length)]);
+                settingsProcess
+                    .findMazePathAlgorithm(
+                        FindMazePathAlgorithm
+                            .values()[new SecureRandom().nextInt(FindMazePathAlgorithm.values().length)]);
                 done = true;
             } else if (number < -1 || number >= FindMazePathAlgorithm.values().length) {
                 done = false;
@@ -116,10 +126,13 @@ public class SettingsController extends Executable {
                 settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.values()[number]);
                 done = true;
             }
-        } catch (NumberFormatException _) {
+        } catch (NumberFormatException e) {
             done = true;
-            if (input.trim().toLowerCase().contains("random")) {
-                settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.values()[new SecureRandom().nextInt(FindMazePathAlgorithm.values().length)]);
+            if (input.trim().toLowerCase().contains(StaticVariables.RANDOM())) {
+                settingsProcess
+                    .findMazePathAlgorithm(
+                        FindMazePathAlgorithm
+                            .values()[new SecureRandom().nextInt(FindMazePathAlgorithm.values().length)]);
             } else {
                 switch (input.trim().toLowerCase()) {
                     case "dead end filler":
@@ -143,7 +156,7 @@ public class SettingsController extends Executable {
         do {
             done = setMazeWidth(listener.readInputLine().trim());
             if (!done) {
-                output.writeOutput(dictionary.getString("Incorrect input. Try again"));
+                output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
 
@@ -151,25 +164,27 @@ public class SettingsController extends Executable {
         do {
             done = setMazeHeight(listener.readInputLine().trim());
             if (!done) {
-                output.writeOutput(dictionary.getString("Incorrect input. Try again"));
+                output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
 
         output.writeOutput(dictionary.getString("Input a start point <x y>"));
+        output.writeOutput(dictionary.getCountingStartsFrom());
         do {
             String[] input = listener.readInputLine().trim().split(" ");
             done = setStartPoint(input[0], input[1]);
             if (!done) {
-                output.writeOutput(dictionary.getString("Incorrect input. Try again"));
+                output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
 
         output.writeOutput(dictionary.getString("Input an end point <x y>"));
+        output.writeOutput(dictionary.getCountingStartsFrom());
         do {
             String[] input = listener.readInputLine().trim().split(" ");
             done = setEndPoint(input[0], input[1]);
             if (!done) {
-                output.writeOutput(dictionary.getString("Incorrect input. Try again"));
+                output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
 
@@ -178,12 +193,12 @@ public class SettingsController extends Executable {
                 dictionary
                     .getString("Choose an algorithm for creation of the maze")
             );
-        output.writeOutput(dictionary.getString("Input number or the name of the algorithm"));
+        output.writeOutput(dictionary.getInputNumberOrNameOfAlgorithm());
         output.writeOutput(dictionary.getCreateAlgorithms(), true, "");
         do {
             done = setCreateMazeAlgorithm(listener.readInputLine());
             if (!done) {
-                output.writeOutput(dictionary.getString("Incorrect input. Try again"));
+                output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
 
@@ -192,12 +207,12 @@ public class SettingsController extends Executable {
                 dictionary
                     .getString("Choose an algorithm for solving the maze")
             );
-        output.writeOutput(dictionary.getString("Input number or the name of the algorithm"));
+        output.writeOutput(dictionary.getInputNumberOrNameOfAlgorithm());
         output.writeOutput(dictionary.getSolveAlgorithms(), true, "");
         do {
             done = setSolveMazeAlgorithm(listener.readInputLine());
             if (!done) {
-                output.writeOutput(dictionary.getString("Incorrect input. Try again"));
+                output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
     }

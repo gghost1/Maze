@@ -4,9 +4,9 @@ import backend.academy.exception.NotInitializedException;
 import backend.academy.exception.UnsuccessfulPreviousProcess;
 import backend.academy.game.process.CoreProcess;
 import backend.academy.game.process.SettingsProcess;
+import java.lang.reflect.InvocationTargetException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import java.lang.reflect.InvocationTargetException;
 
 @Slf4j public class CoreController extends Executable {
 
@@ -32,7 +32,7 @@ import java.lang.reflect.InvocationTargetException;
                 try {
                     coreProcess.createMaze();
                 } catch (NotInitializedException e) {
-                    output.writeOutput(dictionary.getString("Something went wrong"));
+                    output.writeOutput(dictionary.exceptionSomethingWentWrong());
                     log.error(e.getMessage());
                     throw new RuntimeException();
                 }
@@ -46,7 +46,7 @@ import java.lang.reflect.InvocationTargetException;
                 try {
                     coreProcess.solveMaze();
                 } catch (NotInitializedException e) {
-                    output.writeOutput(dictionary.getString("Something went wrong"));
+                    output.writeOutput(dictionary.exceptionSomethingWentWrong());
                     log.error(e.getMessage());
                     throw new RuntimeException();
                 }

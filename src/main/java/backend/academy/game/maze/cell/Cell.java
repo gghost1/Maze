@@ -1,7 +1,7 @@
 package backend.academy.game.maze.cell;
 
-import lombok.Getter;
 import java.util.Objects;
+import lombok.Getter;
 
 @Getter
 public abstract class Cell {
@@ -14,8 +14,12 @@ public abstract class Cell {
     }
 
     @Override public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Cell cell = (Cell) o;
         return x == cell.x && y == cell.y;
     }

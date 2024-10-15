@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
 
-public class CustomOutput {
+public final class CustomOutput {
     private static CustomOutput instance;
     private final PrintWriter writer;
 

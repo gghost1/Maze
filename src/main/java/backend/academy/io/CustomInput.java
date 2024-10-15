@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class CustomInput {
+public final class CustomInput {
 
     private static CustomInput instance;
     private final BufferedReader reader;

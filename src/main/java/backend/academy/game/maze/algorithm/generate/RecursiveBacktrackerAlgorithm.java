@@ -2,12 +2,12 @@ package backend.academy.game.maze.algorithm.generate;
 
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
-import it.unimi.dsi.fastutil.Pair;
 import java.security.SecureRandom;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 public class RecursiveBacktrackerAlgorithm implements CreateMaze {
 
@@ -17,7 +17,7 @@ public class RecursiveBacktrackerAlgorithm implements CreateMaze {
     public List<List<Cell>> apply(List<List<Cell>> maze, Point start, Point end) {
         utilMaze = initUtilMaze((maze.getFirst().size() - 1) / 2, (maze.size() - 1) / 2);
         SecureRandom secureRandom = new SecureRandom();
-        Stack<Point> cellStack = new Stack<>();
+        Deque<Point> cellStack = new ArrayDeque<>();
 
         cellStack.push(start);
         utilMaze.get(start.y()).set(start.x(), 0);
