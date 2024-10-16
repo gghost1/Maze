@@ -17,23 +17,23 @@ public class RecursiveBacktrackerAlgorithm implements CreateMaze {
     public List<List<Cell>> apply(List<List<Cell>> maze, Point start, Point end) {
         utilMaze = initUtilMaze((maze.getFirst().size() - 1) / 2, (maze.size() - 1) / 2);
         SecureRandom secureRandom = new SecureRandom();
-        Deque<Point> cellStack = new ArrayDeque<>();
+        Deque<Point> points = new ArrayDeque<>();
 
-        cellStack.push(start);
+        points.push(start);
         utilMaze.get(start.y()).set(start.x(), 0);
 
-        while (!cellStack.isEmpty()) {
-            Point coordinatesOfStart = cellStack.peek();
+        while (!points.isEmpty()) {
+            Point coordinatesOfStart = points.peek();
             List<Point> unvisitedNeighbors = unvisitedNeighborCells(coordinatesOfStart.x(), coordinatesOfStart.y());
             Collections.shuffle(unvisitedNeighbors);
 
             if (!unvisitedNeighbors.isEmpty()) {
                 Point coordinatesOfNext = unvisitedNeighbors.get(secureRandom.nextInt(unvisitedNeighbors.size()));
-                cellStack.push(coordinatesOfNext);
+                points.push(coordinatesOfNext);
                 utilMaze.get(coordinatesOfNext.y()).set(coordinatesOfNext.x(), 0);
                 connectCells(maze, coordinatesOfStart, coordinatesOfNext);
             } else {
-                cellStack.pop();
+                points.pop();
             }
         }
 

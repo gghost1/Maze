@@ -23,17 +23,17 @@ public class DeadEndFiller implements FindMazePath {
         Point end
     ) throws PathNotFoundException {
         this.maze = maze;
-        List<List<Cell>> mazeInWork = new ArrayList<>();
+        List<List<Cell>> mazeInWork = new ArrayList<>(maze.size());
 
         for (List<Cell> row : maze) {
             List<Cell> newRow = new ArrayList<>();
             for (Cell cell : row) {
-                if (cell instanceof Wall) {
-                    newRow.add(new Wall(cell.x(), cell.y()));
-                } else if (cell instanceof Path) {
-                    newRow.add(new Path(cell.x(), cell.y(), CellType.PATH, CellFlorType.GOOD));
-                } else {
+                if (cell == null) {
                     newRow.add(null);
+                } else if (cell.type() == CellType.WALL) {
+                    newRow.add(new Wall(cell.x(), cell.y()));
+                } else if (cell.type() == CellType.PATH) {
+                    newRow.add(new Path(cell.x(), cell.y(), CellFlorType.GOOD));
                 }
             }
             mazeInWork.add(newRow);
@@ -46,9 +46,9 @@ public class DeadEndFiller implements FindMazePath {
             for (int i = 1; i < maze.size(); i += 2) {
                 for (int j = 1; j < maze.get(i).size(); j += 2) {
                     Cell current = getRealCell(j, i, mazeInWork);
-                    if (!new Point(current.x(), current.y()).equals(end)
-                        && !new Point(current.x(), current.y()).equals(start)) {
-                        if (current instanceof Path) {
+                    if (current != null) {
+                        if (!new Point(current.x(), current.y()).equals(end)
+                            && !new Point(current.x(), current.y()).equals(start) && current.type() == CellType.PATH) {
                             Point validDirection = isDeadEnd(new Point(j, i), mazeInWork);
                             if (validDirection != null) {
                                 mazeInWork
@@ -62,7 +62,6 @@ public class DeadEndFiller implements FindMazePath {
                 }
             }
         }
-
         return findPath(mazeInWork, start, end);
     }
 
@@ -80,7 +79,6 @@ public class DeadEndFiller implements FindMazePath {
                 validStepCounter++;
             }
         }
-
         return validStepCounter == 1 ? validDirection : null;
     }
 
@@ -91,7 +89,7 @@ public class DeadEndFiller implements FindMazePath {
         Point current = new Point(getRealX(start.x()), getRealY(start.y()));
         path.add(new Point(getX(current.x()), getY(current.y())));
         Cell cell = getRealCell(current.x(), current.y(), this.maze);
-        if (cell instanceof Path) {
+        if (cell.type() == CellType.PATH) {
             ((Path) cell).setPath();
         }
 
@@ -104,7 +102,7 @@ public class DeadEndFiller implements FindMazePath {
                         int pathSize = path.size();
                         path.add(new Point(getX(to.x()), getY(to.y())));
                         cell = getRealCell(to.x(), to.y(), this.maze);
-                        if (cell instanceof Path) {
+                        if (cell.type() == CellType.PATH) {
                             ((Path) cell).setPath();
                         }
                         if (pathSize != path.size()) {
@@ -119,11 +117,6 @@ public class DeadEndFiller implements FindMazePath {
                 throw new PathNotFoundException("");
             }
         }
-
         return path.stream().toList();
-
     }
-
-
-
 }

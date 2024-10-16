@@ -1,5 +1,6 @@
 package backend.academy.game.maze.cell;
 
+import backend.academy.exception.NotInitializedException;
 import java.util.Objects;
 import lombok.Getter;
 
@@ -7,11 +8,15 @@ import lombok.Getter;
 public abstract class Cell {
     protected final int x;
     protected final int y;
+    protected final CellType type;
 
-    public Cell(int x, int y) {
+    public Cell(int x, int y, CellType type) {
+        this.type = type;
         this.x = x;
         this.y = y;
     }
+
+    public abstract String getRepresentation() throws NotInitializedException;
 
     @Override public boolean equals(Object o) {
         if (this == o) {

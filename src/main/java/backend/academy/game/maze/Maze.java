@@ -6,7 +6,6 @@ import backend.academy.game.maze.algorithm.findPath.FindMazePath;
 import backend.academy.game.maze.algorithm.generate.CreateMaze;
 import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.CellFlorType;
-import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class Maze {
                     if (j % 2 == 0) {
                         row.add(new Wall(j, i));
                     } else {
-                        row.add(new Path(j / 2, i / 2, CellType.PATH, CellFlorType.GOOD));
+                        row.add(new Path(j / 2, i / 2, CellFlorType.GOOD));
                     }
                 }
                 initMaze.add(row);

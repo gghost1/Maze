@@ -4,21 +4,25 @@ import backend.academy.exception.NotInitializedException;
 import backend.academy.io.language.dictionary.EngDictionary;
 import backend.academy.io.language.dictionary.RuDictionary;
 import backend.academy.io.language.dictionary.WordsStorage;
+import lombok.Getter;
 
+@Getter
 public class LanguageManager extends WordsStorage {
-    public static Dictionary instance;
+    private static Dictionary instance;
 
-    public static Dictionary getDictionary(String language) {
+    public static Dictionary getDictionary(Language language) {
         return switch (language) {
-            case "en" -> {
+            case en -> {
                 if (instance == null || instance instanceof RuDictionary) {
-                    instance = new EngDictionary(keys, keys);
+                    init(language);
+                    instance = new EngDictionary(getKeys(), getKeys());
                 }
                 yield instance;
             }
-            case "ru" -> {
+            case ru -> {
                 if (instance == null || instance instanceof EngDictionary) {
-                    instance = new RuDictionary(keys, ruValues);
+                    init(language);
+                    instance = new RuDictionary(getKeys(), getValues());
                 }
                 yield instance;
             }

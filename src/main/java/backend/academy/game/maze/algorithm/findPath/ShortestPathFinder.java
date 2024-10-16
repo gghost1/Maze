@@ -3,6 +3,7 @@ package backend.academy.game.maze.algorithm.findPath;
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
+import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,13 +42,13 @@ public class ShortestPathFinder implements FindMazePath {
 
             List<Point> directions = directions();
 
-            for (int i = 0; i < directions().size(); i++) {
+            for (Point direction: directions) {
                 Point to = new Point(
-                    getRealX(cell.x() + directions.get(i).x()),
-                    getRealY(cell.y() + directions.get(i).y()));
+                    getRealX(cell.x() + direction.x()),
+                    getRealY(cell.y() + direction.y()));
 
                 if (isValidDestination(to, maze.size(), maze.getFirst().size())
-                    && moveTo(new Point(cell.x(), cell.y()), directions.get(i))) {
+                    && moveTo(new Point(cell.x(), cell.y()), direction)) {
                     Cell destinationCell = getRealCell(to.x(), to.y(), maze);
                     if (!predecessors.containsKey(destinationCell)) {
                         queue.add(destinationCell);
@@ -75,7 +76,7 @@ public class ShortestPathFinder implements FindMazePath {
         Cell step = end;
 
         while (step != null) {
-            if (step instanceof Path) {
+            if (step.type() == CellType.PATH) {
                 ((Path) step).setPath();
             }
             path.add(new Point(step.x(), step.y()));

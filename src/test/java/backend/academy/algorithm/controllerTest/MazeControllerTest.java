@@ -12,9 +12,9 @@ import backend.academy.game.process.maze.MazeGenerationProcess;
 import backend.academy.game.process.maze.MazeProcess;
 import backend.academy.game.process.maze.MazeSolvingProcess;
 import backend.academy.io.CustomInput;
-import backend.academy.io.CustomOutput;
+import backend.academy.io.output.CustomOutput;
+import backend.academy.io.language.Language;
 import backend.academy.io.language.LanguageManager;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.OutputStreamWriter;
@@ -24,7 +24,7 @@ public class MazeControllerTest {
 
     @BeforeEach
     public void setUp() {
-        LanguageManager.getDictionary("en");
+        LanguageManager.getDictionary(Language.en);
         CustomInput.reset();
         CustomInput.getInstance(new StringReader(""));
         CustomOutput.getInstance(new OutputStreamWriter(System.out));

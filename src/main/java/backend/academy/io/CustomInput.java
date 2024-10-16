@@ -7,17 +7,17 @@ import java.io.Reader;
 
 public final class CustomInput {
 
-    private static CustomInput instance;
+    private volatile static CustomInput instance;
     private final BufferedReader reader;
 
-    public static CustomInput getInstance(Reader reader) {
+    public static synchronized CustomInput getInstance(Reader reader) {
         if (instance == null) {
             instance = new CustomInput(reader);
         }
         return instance;
     }
 
-    public static CustomInput getInstance() throws NotInitializedException {
+    public static synchronized CustomInput getInstance() throws NotInitializedException {
         if (instance == null) {
             throw new NotInitializedException("Input not initialized");
         }

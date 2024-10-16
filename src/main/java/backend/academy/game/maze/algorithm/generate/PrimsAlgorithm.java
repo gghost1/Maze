@@ -11,12 +11,16 @@ public class PrimsAlgorithm implements CreateMaze {
 
     private List<List<Integer>> utilMaze;
     private List<Point> frontier;
+    private final SecureRandom secureRandom;
+
+    public PrimsAlgorithm() {
+        this.secureRandom = new SecureRandom();
+    }
 
     @Override
     public List<List<Cell>> apply(List<List<Cell>> maze, Point start, Point end) {
         utilMaze = initUtilMaze((maze.getFirst().size() - 1) / 2, (maze.size() - 1) / 2);
         frontier = new ArrayList<>();
-        SecureRandom secureRandom = new SecureRandom();
 
         int x = start.x();
         int y = start.y();

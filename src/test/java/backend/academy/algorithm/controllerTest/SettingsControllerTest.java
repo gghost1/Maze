@@ -5,7 +5,8 @@ import backend.academy.exception.NotInitializedException;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
 import backend.academy.io.CustomInput;
-import backend.academy.io.CustomOutput;
+import backend.academy.io.output.CustomOutput;
+import backend.academy.io.language.Language;
 import backend.academy.io.language.LanguageManager;
 import org.junit.jupiter.api.Test;
 import java.io.OutputStreamWriter;
@@ -22,7 +23,7 @@ public class SettingsControllerTest {
         CustomOutput.getInstance(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
         CustomInput.reset();
         CustomInput.getInstance(new StringReader("5\n5\n0 0\n4 4\n0\n0"));
-        LanguageManager.getDictionary("en");
+        LanguageManager.getDictionary(Language.en);
 
         SettingsController settingsController = new SettingsController();
         settingsController.execute();
@@ -42,7 +43,7 @@ public class SettingsControllerTest {
         CustomOutput.getInstance(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
         CustomInput.reset();
         CustomInput.getInstance(new StringReader("a\n5\na\n5\na a\n0 0\n4 a\n4 4\npr\nrandom\n-1\na\ndead end filler"));
-        LanguageManager.getDictionary("en");
+        LanguageManager.getDictionary(Language.en);
 
         SettingsController settingsController = new SettingsController();
         settingsController.execute();

@@ -1,12 +1,16 @@
 package backend.academy.controller;
 
+import backend.academy.exception.ExceptionLogger;
 import backend.academy.exception.NotInitializedException;
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
+import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
-import backend.academy.game.maze.cell.Wall;
 import backend.academy.game.process.maze.MazeSolvingProcess;
+import backend.academy.io.CustomInput;
+import backend.academy.io.language.LanguageManager;
+import backend.academy.io.output.CustomOutput;
 import it.unimi.dsi.fastutil.Pair;
 import java.util.List;
 
@@ -15,6 +19,7 @@ public class MazeSolvingController extends Executable {
     private final MazeSolvingProcess mazeSolvingProcess;
 
     public MazeSolvingController(MazeSolvingProcess mazeSolvingProcess) throws NotInitializedException {
+        super(CustomInput.getInstance(), CustomOutput.getInstance(), LanguageManager.dictionary());
         this.mazeSolvingProcess = mazeSolvingProcess;
     }
 
@@ -28,7 +33,7 @@ public class MazeSolvingController extends Executable {
         );
         for (Pair<Integer, Integer> direction: directions) {
             Cell cell = maze.get(point.y() - direction.second()).get(point.x() - direction.first());
-            if (cell instanceof Path) {
+            if (cell != null && cell.type() == CellType.PATH) {
                 if (((Path) cell).isPath()) {
                     counterNeighbours++;
                 }
@@ -51,21 +56,13 @@ public class MazeSolvingController extends Executable {
                 StringBuilder line = new StringBuilder();
                 for (int j = 0; j < maze.getFirst().size(); j++) {
                     Cell cell = maze.get(i).get(j);
-                    if (cell instanceof Wall) {
-                        line.append(dictionary.getWall());
+                    if (cell != null) {
+                        line.append(cell.getRepresentation());
                     } else {
-                        if (cell instanceof Path) {
-                            if (((Path) cell).isPath()) {
-                                line.append(dictionary.getCorrectPath());
-                            } else {
-                                line.append(dictionary.getPath());
-                            }
+                        if (isConnector(new Point(j, i), maze)) {
+                            line.append(dictionary.getCorrectPath());
                         } else {
-                            if (isConnector(new Point(j, i), maze)) {
-                                line.append(dictionary.getCorrectPath());
-                            } else {
-                                line.append(dictionary.getPath());
-                            }
+                            line.append(dictionary.getPath());
                         }
                     }
                 }
@@ -73,6 +70,9 @@ public class MazeSolvingController extends Executable {
             }
         } catch (PathNotFoundException e) {
             output.writeOutput(dictionary.getString("There is no path from start to end in the maze"));
+        } catch (NotInitializedException e) {
+            ExceptionLogger.log(e);
+            throw new RuntimeException(e);
         }
     }
 }

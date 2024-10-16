@@ -1,26 +1,42 @@
 package backend.academy.controller;
 
+import backend.academy.exception.ExceptionLogger;
 import backend.academy.exception.NotInitializedException;
-import backend.academy.exception.UnsuccessfulPreviousProcess;
 import backend.academy.game.process.CoreProcess;
 import backend.academy.game.process.SettingsProcess;
+import backend.academy.io.CustomInput;
+import backend.academy.io.language.Dictionary;
+import backend.academy.io.language.LanguageManager;
+import backend.academy.io.output.CustomOutput;
+import backend.academy.io.output.CustomOutputWrapper;
 import java.lang.reflect.InvocationTargetException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j public class CoreController extends Executable {
+@Slf4j
+public class CoreController extends Executable {
 
     @Getter
     private final CoreProcess coreProcess;
 
-    public CoreController(SettingsProcess settingsProcess)
-        throws NotInitializedException,
-        InvocationTargetException,
-        NoSuchMethodException,
-        InstantiationException,
-        IllegalAccessException,
-        UnsuccessfulPreviousProcess {
-        coreProcess = new CoreProcess(settingsProcess);
+    public static CoreController create(SettingsProcess settingsProcess)
+        throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException,
+        NotInitializedException {
+        return new CoreController(
+            CoreProcess.create(settingsProcess),
+            CustomInput.getInstance(),
+            CustomOutput.getInstance(),
+            LanguageManager.dictionary()
+        );
+    }
+
+    private CoreController(
+        CoreProcess coreProcess,
+        CustomInput customInput,
+        CustomOutputWrapper customOutputWrapper,
+        Dictionary dictionary) {
+        super(customInput, customOutputWrapper, dictionary);
+        this.coreProcess = coreProcess;
     }
 
     @Override
@@ -33,8 +49,8 @@ import lombok.extern.slf4j.Slf4j;
                     coreProcess.createMaze();
                 } catch (NotInitializedException e) {
                     output.writeOutput(dictionary.exceptionSomethingWentWrong());
-                    log.error(e.getMessage());
-                    throw new RuntimeException();
+                    ExceptionLogger.log(e);
+                    throw new RuntimeException(e);
                 }
                 next = true;
             }
@@ -47,8 +63,8 @@ import lombok.extern.slf4j.Slf4j;
                     coreProcess.solveMaze();
                 } catch (NotInitializedException e) {
                     output.writeOutput(dictionary.exceptionSomethingWentWrong());
-                    log.error(e.getMessage());
-                    throw new RuntimeException();
+                    ExceptionLogger.log(e);
+                    throw new RuntimeException(e);
                 }
                 next = true;
             }

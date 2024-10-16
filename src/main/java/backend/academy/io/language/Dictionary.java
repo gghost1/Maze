@@ -2,6 +2,7 @@ package backend.academy.io.language;
 
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("MultipleStringLiterals")
@@ -9,19 +10,23 @@ public interface Dictionary {
     String getString(String string);
 
     default List<String> getCreateAlgorithms() {
-        return List.of(
-            "0. Random algorithm",
-            "1. " + CreateMazeAlgorithm.values()[0].toString(),
-            "2. " + CreateMazeAlgorithm.values()[1].toString()
-        );
+        List<String> algorithms = new ArrayList<>(List.of(
+            "0. Random algorithm"
+        ));
+        for (int i = 0; i < CreateMazeAlgorithm.values().length; i++) {
+            algorithms.add((i + 1) + ". " + CreateMazeAlgorithm.values()[i].toString());
+        }
+        return algorithms;
     }
 
     default List<String> getSolveAlgorithms() {
-        return List.of(
-            "0. Random algorithm",
-            "1. " + FindMazePathAlgorithm.values()[0].toString(),
-            "2. " + FindMazePathAlgorithm.values()[1].toString()
-        );
+        List<String> algorithms = new ArrayList<>(List.of(
+            "0. Random algorithm"
+        ));
+        for (int i = 0; i < FindMazePathAlgorithm.values().length; i++) {
+            algorithms.add((i + 1) + ". " + FindMazePathAlgorithm.values()[i].toString());
+        }
+        return algorithms;
     }
 
     default String exceptionSomethingWentWrong() {

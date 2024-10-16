@@ -7,6 +7,9 @@ import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
 import backend.academy.game.process.SettingsProcess;
+import backend.academy.io.CustomInput;
+import backend.academy.io.language.LanguageManager;
+import backend.academy.io.output.CustomOutput;
 import java.security.SecureRandom;
 import lombok.Getter;
 
@@ -14,35 +17,38 @@ import lombok.Getter;
 public class SettingsController extends Executable {
 
     private final SettingsProcess settingsProcess;
+    private final SecureRandom secureRandom;
 
     public SettingsController() throws NotInitializedException {
+        super(CustomInput.getInstance(), CustomOutput.getInstance(), LanguageManager.dictionary());
         settingsProcess = new SettingsProcess();
+        secureRandom = new SecureRandom();
     }
 
     private boolean setMazeWidth(String input) {
-        boolean done = false;
+        boolean done;
         try {
             settingsProcess.mazeWidth(Integer.parseInt(input));
             done = true;
         } catch (NumberFormatException e) {
-
+            done = false;
         }
         return done;
     }
 
     private boolean setMazeHeight(String input) {
-        boolean done = false;
+        boolean done;
         try {
             settingsProcess.mazeHeight(Integer.parseInt(input));
             done = true;
         } catch (NumberFormatException e) {
-
+            done = false;
         }
         return done;
     }
 
     private boolean setStartPoint(String input1, String input2) {
-        boolean done = false;
+        boolean done;
         try {
             settingsProcess.start(new Point(
                 Integer.parseInt(input1),
@@ -50,13 +56,13 @@ public class SettingsController extends Executable {
             );
             done = true;
         } catch (NumberFormatException e) {
-
+            done = false;
         }
         return done;
     }
 
     private boolean setEndPoint(String input1, String input2) {
-        boolean done = false;
+        boolean done;
         try {
             settingsProcess.end(new Point(
                 Integer.parseInt(input1),
@@ -64,7 +70,7 @@ public class SettingsController extends Executable {
             );
             done = true;
         } catch (NumberFormatException e) {
-
+            done = false;
         }
         return done;
     }
@@ -78,7 +84,7 @@ public class SettingsController extends Executable {
                 settingsProcess
                     .createMazeAlgorithm(
                         CreateMazeAlgorithm
-                            .values()[new SecureRandom().nextInt(CreateMazeAlgorithm.values().length)]);
+                            .values()[secureRandom.nextInt(CreateMazeAlgorithm.values().length)]);
                 done = true;
             } else if (number < -1 || number >= FindMazePathAlgorithm.values().length) {
                 done = false;
@@ -92,7 +98,7 @@ public class SettingsController extends Executable {
                 settingsProcess
                     .createMazeAlgorithm(
                         CreateMazeAlgorithm
-                            .values()[new SecureRandom().nextInt(CreateMazeAlgorithm.values().length)]);
+                            .values()[secureRandom.nextInt(CreateMazeAlgorithm.values().length)]);
             } else {
                 switch (input.trim().toLowerCase()) {
                     case "prims":
@@ -118,7 +124,7 @@ public class SettingsController extends Executable {
                 settingsProcess
                     .findMazePathAlgorithm(
                         FindMazePathAlgorithm
-                            .values()[new SecureRandom().nextInt(FindMazePathAlgorithm.values().length)]);
+                            .values()[secureRandom.nextInt(FindMazePathAlgorithm.values().length)]);
                 done = true;
             } else if (number < -1 || number >= FindMazePathAlgorithm.values().length) {
                 done = false;
@@ -132,7 +138,7 @@ public class SettingsController extends Executable {
                 settingsProcess
                     .findMazePathAlgorithm(
                         FindMazePathAlgorithm
-                            .values()[new SecureRandom().nextInt(FindMazePathAlgorithm.values().length)]);
+                            .values()[secureRandom.nextInt(FindMazePathAlgorithm.values().length)]);
             } else {
                 switch (input.trim().toLowerCase()) {
                     case "dead end filler":

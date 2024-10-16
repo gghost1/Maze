@@ -16,24 +16,28 @@ public class CoreProcess {
     private final SettingsProcess settingsProcess;
     private MazeProcess maze;
 
-    public CoreProcess(SettingsProcess settingsProcess)
-        throws NoSuchMethodException,
-            InvocationTargetException,
-            InstantiationException,
-            IllegalAccessException,
-            UnsuccessfulPreviousProcess {
+    public static CoreProcess create(SettingsProcess settingsProcess)
+        throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         try {
             settingsProcess.isValid();
         } catch (IllegalSettingParameter e) {
             throw new UnsuccessfulPreviousProcess("", e);
         }
-        this.settingsProcess = settingsProcess;
-        this.maze = new MazeProcess(new Maze(
+        Maze creationMaze = new Maze(
             settingsProcess.mazeWidth(),
             settingsProcess.mazeHeight(),
             settingsProcess.createMazeAlgorithm().getAlgorithm().getConstructor().newInstance(),
             settingsProcess.findMazePathAlgorithm().getAlgorithm().getConstructor().newInstance()
-        ), new MazeProcess.MazeSettings(settingsProcess.start(), settingsProcess.end()));
+        );
+        return new CoreProcess(settingsProcess, creationMaze);
+    }
+
+    private CoreProcess(SettingsProcess settingsProcess, Maze maze) {
+        this.settingsProcess = settingsProcess;
+        this.maze = new MazeProcess(
+            maze,
+            new MazeProcess.MazeSettings(settingsProcess.start(), settingsProcess.end())
+        );
     }
 
     public void createMaze() throws NotInitializedException {

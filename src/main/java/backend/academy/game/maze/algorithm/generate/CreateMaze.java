@@ -11,7 +11,7 @@ public interface CreateMaze extends MazeUtils {
     List<List<Cell>> apply(List<List<Cell>> maze, Point start, Point end);
 
     default List<List<Integer>> initUtilMaze(int width, int height) {
-        List<List<Integer>> innerUtilMaze = new ArrayList<>();
+        List<List<Integer>> innerUtilMaze = new ArrayList<>(height);
         for (int i = 0; i < height; i++) {
             innerUtilMaze.add(new ArrayList<>());
             for (int j = 0; j < width; j++) {
