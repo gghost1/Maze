@@ -25,6 +25,6 @@ public class Path extends Cell {
 
     @Override
     public String getRepresentation() throws NotInitializedException {
-        return isPath ? LanguageManager.dictionary().getCorrectPath() : LanguageManager.dictionary().getPath();
+        return isPath ? LanguageManager.dictionary().getCorrectPath() : florType.toString();
     }
 }

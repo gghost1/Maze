@@ -8,7 +8,9 @@ import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.CellFlorType;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 
@@ -52,13 +54,21 @@ public class Maze {
                     if (j % 2 == 0) {
                         row.add(new Wall(j, i));
                     } else {
-                        row.add(new Path(j / 2, i / 2, CellFlorType.GOOD));
+                        row.add(new Path(j / 2, i / 2, getRandomCellFlorType()));
                     }
                 }
                 initMaze.add(row);
             }
         }
         return initMaze;
+    }
+
+    public CellFlorType getRandomCellFlorType() {
+        List<CellFlorType> cellFlorTypes = new ArrayList<>(Arrays.stream(CellFlorType.values()).toList());
+        for (int i = 0; i < 3; i++) {
+            cellFlorTypes.add(2, CellFlorType.TRAIL);
+        }
+        return cellFlorTypes.get(new SecureRandom().nextInt(cellFlorTypes.size()));
     }
 
 }
