@@ -3,6 +3,7 @@ package backend.academy.game.maze.algorithm.generate;
 import backend.academy.game.maze.algorithm.MazeUtils;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
+import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public interface CreateMaze extends MazeUtils {
     default void connectCells(List<List<Cell>> maze, Point start, Point end) {
         Cell startCell = getCell(start.x(), start.y(), maze);
         Cell endCell = getCell(end.x(), end.y(), maze);
-        if (startCell instanceof Path && endCell instanceof Path) {
+        if (startCell.type() == CellType.PATH && endCell.type() == CellType.PATH) {
             maze.get(getRealY(start.y()) - (start.y() - end.y()))
                 .set(getRealX(start.x()) - (start.x() - end.x()), null);
         }
