@@ -2,7 +2,8 @@ package backend.academy.game.maze.algorithm.findPath;
 
 public enum FindMazePathAlgorithm {
     DEAD_END_FILLER(DeadEndFiller.class),
-    SHORTEST_PATH_FINDER(ShortestPathFinder.class);
+    SHORTEST_PATH_FINDER(ShortestPathFinder.class),
+    A_STAR(AStar.class);
 
     private final Class<? extends FindMazePath> algorithmClass;
 
@@ -14,6 +15,7 @@ public enum FindMazePathAlgorithm {
         return switch (algorithmClass.getSimpleName()) {
             case "DeadEndFiller" -> DEAD_END_FILLER;
             case "ShortestPathFinder" -> SHORTEST_PATH_FINDER;
+            case "AStar" -> A_STAR;
             default -> null;
         };
     }
@@ -23,6 +25,7 @@ public enum FindMazePathAlgorithm {
         return switch (this) {
             case DEAD_END_FILLER -> "Dead end filler";
             case SHORTEST_PATH_FINDER -> "Shortest path finder";
+            case A_STAR -> "A*";
         };
     }
 
