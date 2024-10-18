@@ -33,7 +33,7 @@ public class DeadEndFiller implements FindMazePath {
                 } else if (cell.type() == CellType.WALL) {
                     newRow.add(new Wall(cell.x(), cell.y()));
                 } else if (cell.type() == CellType.PATH) {
-                    newRow.add(new Path(cell.x(), cell.y(), CellFlorType.GOOD));
+                    newRow.add(new Path(cell.x(), cell.y(), null));
                 }
             }
             mazeInWork.add(newRow);
@@ -114,7 +114,7 @@ public class DeadEndFiller implements FindMazePath {
                 }
             }
             if (!hasStep) {
-                throw new PathNotFoundException("");
+                throw new PathNotFoundException("There is no path from start to end in the maze");
             }
         }
         return path.stream().toList();

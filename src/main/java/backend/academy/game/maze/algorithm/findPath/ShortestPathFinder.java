@@ -58,7 +58,7 @@ public class ShortestPathFinder implements FindMazePath {
 
             }
         }
-        throw new PathNotFoundException("");
+        throw new PathNotFoundException("There is no path from start to end in the maze");
     }
 
     private boolean moveTo(Point from, Point direction) {
