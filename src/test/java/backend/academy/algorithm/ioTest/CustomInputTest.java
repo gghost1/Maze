@@ -26,7 +26,7 @@ public class CustomInputTest {
     @Test
     public void getCustomInputNegativeTest() {
         CustomInput.reset();
-        assertThrows(NotInitializedException.class, () -> CustomInput.getInstance());
+        assertThrows(NotInitializedException.class, CustomInput::getInstance);
     }
 
     @Test

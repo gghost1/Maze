@@ -21,6 +21,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MazeControllerTest {
 
@@ -40,7 +42,7 @@ public class MazeControllerTest {
                     new MazeProcess(
                         new Maze(5, 5, new PrimsAlgorithm(), new ShortestPathFinder()),
                         new MazeProcess.MazeSettings(new Point(0,0), new Point(4,4)))));
-        mazeGenerationController.execute();
+        assertDoesNotThrow(mazeGenerationController::execute);
     }
 
     @Test
@@ -51,7 +53,7 @@ public class MazeControllerTest {
             new MazeSolvingController(
                 new MazeSolvingProcess(
                     new MazeProcess(maze, new MazeProcess.MazeSettings(new Point(0,0), new Point(4,4)))));
-        mazeSolvingController.execute();
+        assertDoesNotThrow(mazeSolvingController::execute);
     }
 
     @Test

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SettingsControllerTest {
 
     @Test
-    public void executeTest() throws NotInitializedException {
+    public void executeAverageTest() throws NotInitializedException {
         CustomOutput.getInstance(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
         CustomInput.reset();
         CustomInput.getInstance(new StringReader("5\n5\n0 0\n4 4\n0\n0"));
@@ -36,6 +36,26 @@ public class SettingsControllerTest {
         assertEquals(4, settingsController.settingsProcess().end().y());
         assertTrue(Arrays.stream(CreateMazeAlgorithm.values()).toList().contains(settingsController.settingsProcess().createMazeAlgorithm()));
         assertTrue(Arrays.stream(FindMazePathAlgorithm.values()).toList().contains(settingsController.settingsProcess().findMazePathAlgorithm()));
+    }
+
+    @Test
+    public void executeTwoPathsTest() throws NotInitializedException {
+        CustomOutput.getInstance(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
+        CustomInput.reset();
+        CustomInput.getInstance(new StringReader("5\n5\n0 0\n4 4\n3"));
+        LanguageManager.getDictionary(Language.en);
+
+        SettingsController settingsController = new SettingsController();
+        settingsController.execute();
+
+        assertEquals(5, settingsController.settingsProcess().mazeWidth());
+        assertEquals(5, settingsController.settingsProcess().mazeHeight());
+        assertEquals(0, settingsController.settingsProcess().start().x());
+        assertEquals(0, settingsController.settingsProcess().start().y());
+        assertEquals(4, settingsController.settingsProcess().end().x());
+        assertEquals(4, settingsController.settingsProcess().end().y());
+        assertEquals(CreateMazeAlgorithm.WAVE_PROPAGATION, settingsController.settingsProcess().createMazeAlgorithm());
+        assertEquals(FindMazePathAlgorithm.A_STAR, settingsController.settingsProcess().findMazePathAlgorithm());
     }
 
     @Test

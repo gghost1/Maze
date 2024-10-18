@@ -19,6 +19,7 @@ import backend.academy.game.maze.cell.Wall;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,7 +65,8 @@ public class MazeTest {
         maze.generateMaze(new Point(0, 0), new Point(2, 2));
         List<Point> path = maze.solveMaze(new Point(0, 0), new Point(2, 2));
 
-        assertTrue(path.contains(new Point(0, 0)) && path.contains(new Point(2, 2)));
+        assertTrue(path.getFirst().equals(new Point(0, 0))
+            && path.getLast().equals(new Point(2, 2)));
     }
 
     @ParameterizedTest
@@ -79,11 +81,6 @@ public class MazeTest {
 
     private static Stream<FindMazePath> provideFindMazePathAlgorithms() {
         return Stream.of(new DeadEndFiller(), new ShortestPathFinder(), new AStar());
-    }
-
-    @Test
-    public void AStarTest() throws NotInitializedException {
-
     }
 
 }
