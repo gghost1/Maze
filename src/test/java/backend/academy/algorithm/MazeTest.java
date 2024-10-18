@@ -13,8 +13,10 @@ import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
 import backend.academy.game.maze.algorithm.generate.PrimsAlgorithm;
 import backend.academy.game.maze.algorithm.generate.RecursiveBacktrackerAlgorithm;
 import backend.academy.game.maze.algorithm.generate.WavePropagationAlgorithm;
+import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -62,9 +64,7 @@ public class MazeTest {
         Maze maze = new Maze(3, 3, new PrimsAlgorithm(), findMazePath);
         maze.generateMaze(new Point(0, 0), new Point(2, 2));
         List<Point> path = maze.solveMaze(new Point(0, 0), new Point(2, 2));
-
-        assertTrue(path.getFirst().equals(new Point(0, 0))
-            && path.getLast().equals(new Point(2, 2)));
+        assertTrue(checkValidPath(maze.maze(), path));
     }
 
     @ParameterizedTest
@@ -79,6 +79,20 @@ public class MazeTest {
 
     private static Stream<FindMazePath> provideFindMazePathAlgorithms() {
         return Stream.of(new DeadEndFiller(), new ShortestPathFinder(), new AStar());
+    }
+
+    private boolean checkValidPath(List<List<Cell>> maze, List<Point> path) {
+        List<Point> currentPath = new ArrayList<>(path);
+        Point current = currentPath.removeFirst();
+        for (Point point: currentPath) {
+            if (maze.get(
+                    (current.y() * 2 + 1) + (point.y() - current.y()))
+                .get((current.x() * 2 + 1) + (point.x() - current.x())) != null) {
+                return false;
+            }
+            current = point;
+        }
+        return true;
     }
 
 }
