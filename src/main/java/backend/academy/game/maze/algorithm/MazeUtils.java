@@ -25,6 +25,7 @@ public interface MazeUtils {
     default Point getRealPoint(Point point) {
         return new Point(getRealX(point.x()), getRealY(point.y()));
     }
+
     default Point getPoint(Point realPoint) {
         return new Point(getX(realPoint.x()), getY(realPoint.y()));
     }

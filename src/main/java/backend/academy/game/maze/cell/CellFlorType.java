@@ -2,9 +2,9 @@ package backend.academy.game.maze.cell;
 
 public enum CellFlorType {
     DESERT(2),
-    DIRT (1),
-    TRAIL (0),
-    ROAD (-1);
+    DIRT(1),
+    TRAIL(0),
+    ROAD(-1);
 
     final int value;
 

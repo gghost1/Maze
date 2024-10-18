@@ -2,7 +2,6 @@ package backend.academy.game.maze.algorithm.generate;
 
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
-import org.checkerframework.checker.units.qual.C;
 import java.security.SecureRandom;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ public class WavePropagationAlgorithm implements CreateMaze {
 
     @Override
     public List<List<Cell>> apply(List<List<Cell>> maze, Point start, Point end) {
+        SecureRandom secureRandom = new SecureRandom();
         this.maze = maze;
         this.width = maze.size();
         this.height = maze.getFirst().size();
@@ -54,7 +54,8 @@ public class WavePropagationAlgorithm implements CreateMaze {
         if (intersectedList.size() > 2) {
             int i = 0;
             while (i < 2 && i < intersectedList.size()) {
-                Map.Entry<Point, Point> entry = intersectedList.remove(new SecureRandom().nextInt(intersectedList.size()));
+                Map.Entry<Point, Point> entry = intersectedList
+                    .remove(secureRandom.nextInt(intersectedList.size()));
                 connectCells(maze, entry.getKey(), entry.getValue());
                 i++;
             }
@@ -82,7 +83,8 @@ public class WavePropagationAlgorithm implements CreateMaze {
                         wave2.add(to);
                     }
                 } else if (cellState != waveNumber
-                && !((intersected.get(to) != null && intersected.get(to).equals(current)) || (intersected.get(current) != null && intersected.get(current).equals(to)))) {
+                && !((intersected.get(to) != null && intersected.get(to).equals(current))
+                    || (intersected.get(current) != null && intersected.get(current).equals(to)))) {
                     if (this.intersected.containsKey(current)) {
                         intersected.put(to, current);
                     } else {

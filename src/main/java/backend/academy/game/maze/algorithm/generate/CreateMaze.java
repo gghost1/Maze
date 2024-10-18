@@ -4,7 +4,6 @@ import backend.academy.game.maze.algorithm.MazeUtils;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.CellType;
-import backend.academy.game.maze.cell.Path;
 import java.util.ArrayList;
 import java.util.List;
 

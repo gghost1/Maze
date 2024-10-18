@@ -1,5 +1,6 @@
 package backend.academy.game.maze;
 
+import backend.academy.StaticVariables;
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.FindMazePath;
@@ -20,10 +21,13 @@ public class Maze {
     private CreateMaze createMaze;
     private FindMazePath findMazePath;
 
+    private SecureRandom secureRandom;
+
     private int width;
     private int height;
 
     public Maze(int width, int height, CreateMaze createMaze, FindMazePath findMazePath) {
+        secureRandom = new SecureRandom();
         this.width = width;
         this.height = height;
         this.createMaze = createMaze;
@@ -65,10 +69,10 @@ public class Maze {
 
     public CellFlorType getRandomCellFlorType() {
         List<CellFlorType> cellFlorTypes = new ArrayList<>(Arrays.stream(CellFlorType.values()).toList());
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < StaticVariables.PROBABILITY_RAISE(); i++) {
             cellFlorTypes.add(2, CellFlorType.TRAIL);
         }
-        return cellFlorTypes.get(new SecureRandom().nextInt(cellFlorTypes.size()));
+        return cellFlorTypes.get(secureRandom.nextInt(cellFlorTypes.size()));
     }
 
 }

@@ -152,6 +152,7 @@ public class SettingsController extends Executable {
                         break;
                     case "a*":
                         settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.A_STAR);
+                        break;
                     default:
                         done = false;
                 }

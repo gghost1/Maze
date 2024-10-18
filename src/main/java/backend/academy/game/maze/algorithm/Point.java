@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.Pair;
 import java.util.Objects;
 
 public class Point {
-    private final Pair<Integer, Integer> coordinates;
+    protected final Pair<Integer, Integer> coordinates;
 
     public Point(int x, int y) {
         this.coordinates = Pair.of(x, y);
@@ -27,7 +27,8 @@ public class Point {
             return false;
         }
         Point point = (Point) o;
-        return Objects.equals(coordinates.first(), point.coordinates.first()) && Objects.equals(coordinates.second(), point.coordinates.second());
+        return Objects.equals(coordinates.first(), point.coordinates.first())
+            && Objects.equals(coordinates.second(), point.coordinates.second());
     }
 
     @Override

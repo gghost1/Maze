@@ -3,7 +3,6 @@ package backend.academy.game.maze.algorithm.findPath;
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
-import backend.academy.game.maze.cell.CellFlorType;
 import backend.academy.game.maze.cell.CellType;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;

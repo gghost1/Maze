@@ -4,12 +4,13 @@ import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.Path;
-import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import lombok.Getter;
 
 public class AStar implements FindMazePath {
 
@@ -18,9 +19,11 @@ public class AStar implements FindMazePath {
     @Override
     public List<Point> apply(List<List<Cell>> maze, Point start, Point end) throws PathNotFoundException {
         this.maze = maze;
-        PointModified bestEnd = new PointModified(0, 0).setDistance(Integer.MAX_VALUE/2, Integer.MAX_VALUE/2);
+        PointModified bestEnd = new PointModified(0, 0)
+            .setDistance(Integer.MAX_VALUE / 2, Integer.MAX_VALUE / 2);
         Queue<PointModified> queue = new PriorityQueue<>(
-            Comparator.comparingInt((PointModified o) -> o.weight).thenComparingInt(o -> o.directDistance));
+            Comparator.comparingInt((PointModified o) -> o.weight)
+                .thenComparingInt(o -> o.directDistance));
 
         queue.add(new PointModified(start).setDistance(directPath(start, end), 0));
 
@@ -58,20 +61,21 @@ public class AStar implements FindMazePath {
 
     private int directPath(Point start, Point end) {
         int counter = 0;
+        Point current = start;
 
-        while (start.x() != end.x() || start.y() != end.y()) {
-            if (start.x() < end.x()) {
-                start = new Point(start.x() + 1, start.y());
+        while (current.x() != end.x() || current.y() != end.y()) {
+            if (current.x() < end.x()) {
+                current = new Point(current.x() + 1, current.y());
                 counter++;
-            } else if (start.x() > end.x()) {
-                start = new Point(start.x() - 1, start.y());
+            } else if (current.x() > end.x()) {
+                current = new Point(current.x() - 1, current.y());
                 counter++;
             }
-            if (start.y() < end.y()) {
-                start = new Point(start.x(), start.y() + 1);
+            if (current.y() < end.y()) {
+                current = new Point(current.x(), current.y() + 1);
                 counter++;
-            } else if (start.y() > end.y()) {
-                start = new Point(start.x(), start.y() - 1);
+            } else if (current.y() > end.y()) {
+                current = new Point(current.x(), current.y() - 1);
                 counter++;
             }
         }
@@ -80,13 +84,14 @@ public class AStar implements FindMazePath {
     }
 
     private boolean isVisited(PointModified current, Point to) {
+        PointModified next = current;
         while (true) {
-            if (current.prev() == null) {
+            if (next.prev() == null) {
                 return false;
-            } else if (current.prev().equals(to)) {
+            } else if (next.prev().equals(to)) {
                 return true;
             } else {
-                current = current.prev();
+                next = next.prev();
             }
         }
     }
@@ -95,12 +100,11 @@ public class AStar implements FindMazePath {
         List<Point> path = new ArrayList<>();
         path.add(end);
         ((Path) getCell(end.x(), end.y(), maze)).setPath();
-
-        while (end.prev() != null) {
-            PointModified prev = end.prev();
+        PointModified prev = end;
+        while (prev.prev() != null) {
+            prev = prev.prev();
             ((Path) getCell(prev.x(), prev.y(), maze)).setPath();
             path.add(prev);
-            end = end.prev();
         }
         return path;
     }
@@ -112,11 +116,11 @@ public class AStar implements FindMazePath {
         private int passedDistance;
         private int weight;
 
-        public PointModified(Point point) {
+        private PointModified(Point point) {
             super(point.x(), point.y());
         }
 
-        public PointModified(int x, int y) {
+        private PointModified(int x, int y) {
             super(x, y);
         }
 
@@ -137,6 +141,12 @@ public class AStar implements FindMazePath {
         public boolean equals(Object o) {
             return super.equals(o);
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(coordinates, weight);
+        }
+
     }
 
 }
