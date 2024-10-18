@@ -18,15 +18,16 @@ public class Point {
         return coordinates.second();
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null || (getClass() != o.getClass() && !(o instanceof Point))) {
             return false;
         }
         Point point = (Point) o;
-        return Objects.equals(coordinates, point.coordinates);
+        return Objects.equals(coordinates.first(), point.coordinates.first()) && Objects.equals(coordinates.second(), point.coordinates.second());
     }
 
     @Override
