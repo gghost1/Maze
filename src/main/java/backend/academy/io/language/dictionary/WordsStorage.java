@@ -31,18 +31,40 @@ public class WordsStorage {
             "Неправильный ввод. Попробуйте ещё раз"), language);
         addRuWord(Pair.of("Choose an algorithm for creation of the maze",
             "Выберите алгоритм для создания лабиринта"), language);
+        addRuWord(Pair.of(" was chosen",
+            " был выбран"), language);
+        addRuWord(Pair.of("For this generation algorithm, only ",
+            "Для данного алгоритма только "), language);
+        addRuWord(Pair.of(" is suitable",
+            " подходит"), language);
         addRuWord(Pair.of("Choose an algorithm for solving the maze",
             "Выберите алгоритм для решения лабиринта"), language);
         addRuWord(Pair.of("Input number or the name of the algorithm",
             "Введите номер или имя алгоритма"), language);
         addRuWord(Pair.of("The wall is displayed as ",
             "Стена обозначена как "), language);
-        addRuWord(Pair.of("The path is displayed as ",
-            "Путь обозначен как "), language);
+        addRuWord(Pair.of("The passage is displayed as ",
+            "Проход обозначен как "), language);
+        addRuWord(Pair.of("The ",
+            ""), language);
+        addRuWord(Pair.of(" is displayed as ",
+            " обозначена как "), language);
+        addRuWord(Pair.of(". It slows down the player by ",
+            ". Это снижает скорость игрока на "), language);
+        addRuWord(Pair.of(" hours",
+            " часов"), language);
+        addRuWord(Pair.of("desert",
+            "Пустыня"), language);
+        addRuWord(Pair.of("dirt",
+            "Грязь"), language);
+        addRuWord(Pair.of("trail",
+            "Тропинка"), language);
+        addRuWord(Pair.of("road",
+            "Дорога"), language);
         addRuWord(Pair.of("There is no path from start to end in the maze",
             "В этом лабиринте нет пути от начала до конца"), language);
-        addRuWord(Pair.of("The correct path from start to end is displayed as ",
-            "Правильный путь от начала до конца обозначен как "), language);
+        addRuWord(Pair.of("The correct and fastest path from start to end is displayed as ",
+            "Правильный и быстрый путь от начала до конца обозначен как "), language);
         addRuWord(Pair.of("Something went wrong",
             "Что-то пошло не так"), language);
         addRuWord(Pair.of("To generation the maze input 1",
