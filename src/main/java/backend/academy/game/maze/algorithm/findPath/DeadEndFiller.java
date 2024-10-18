@@ -84,9 +84,9 @@ public class DeadEndFiller implements FindMazePath {
     private List<Point> findPath(List<List<Cell>> maze, Point start, Point end) throws PathNotFoundException {
         Set<Point> path = new LinkedHashSet<>();
 
-        Point endPoint = new Point(getRealX(end.x()), getRealY(end.y()));
-        Point current = new Point(getRealX(start.x()), getRealY(start.y()));
-        path.add(new Point(getX(current.x()), getY(current.y())));
+        Point endPoint = new Point(getRealCoordinate(end.x()), getRealCoordinate(end.y()));
+        Point current = new Point(getRealCoordinate(start.x()), getRealCoordinate(start.y()));
+        path.add(new Point(getCoordinate(current.x()), getCoordinate(current.y())));
         Cell cell = getRealCell(current.x(), current.y(), this.maze);
         if (cell.type() == CellType.PATH) {
             ((Path) cell).setPath();
@@ -99,7 +99,7 @@ public class DeadEndFiller implements FindMazePath {
                 if (isValidDestination(to, maze.size(), maze.getFirst().size())) {
                     if (getRealCell(to.x() - direction.x() / 2, to.y() - direction.y() / 2, maze) == null) {
                         int pathSize = path.size();
-                        path.add(new Point(getX(to.x()), getY(to.y())));
+                        path.add(new Point(getCoordinate(to.x()), getCoordinate(to.y())));
                         cell = getRealCell(to.x(), to.y(), this.maze);
                         if (cell.type() == CellType.PATH) {
                             ((Path) cell).setPath();

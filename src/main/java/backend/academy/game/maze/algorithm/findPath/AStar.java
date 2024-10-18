@@ -5,6 +5,7 @@ import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
 import backend.academy.game.maze.cell.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +40,11 @@ public class AStar implements FindMazePath {
                 Point to = new Point(current.x() + direction.x(), current.y() + direction.y());
 
                 if (isValidDestination(getRealPoint(to), maze.getFirst().size(), maze.size())
-                && getRealCell(getRealX(to.x()) - direction.x(), getRealY(to.y()) - direction.y(), maze) == null
+                && getRealCell(
+                    getRealCoordinate(to.x()) - direction.x(),
+                    getRealCoordinate(to.y()) - direction.y(),
+                    maze
+                ) == null
                 && (current.prev() == null || !isVisited(current, to))) {
                     queue.add(
                         current
@@ -106,6 +111,7 @@ public class AStar implements FindMazePath {
             ((Path) getCell(prev.x(), prev.y(), maze)).setPath();
             path.add(prev);
         }
+        Collections.reverse(path);
         return path;
     }
 

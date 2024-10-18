@@ -44,8 +44,8 @@ public class ShortestPathFinder implements FindMazePath {
 
             for (Point direction: directions) {
                 Point to = new Point(
-                    getRealX(cell.x() + direction.x()),
-                    getRealY(cell.y() + direction.y()));
+                    getRealCoordinate(cell.x() + direction.x()),
+                    getRealCoordinate(cell.y() + direction.y()));
 
                 if (isValidDestination(to, maze.size(), maze.getFirst().size())
                     && moveTo(new Point(cell.x(), cell.y()), direction)) {
@@ -62,8 +62,8 @@ public class ShortestPathFinder implements FindMazePath {
     }
 
     private boolean moveTo(Point from, Point direction) {
-        int realX = getRealX(from.x());
-        int realY = getRealY(from.y());
+        int realX = getRealCoordinate(from.x());
+        int realY = getRealCoordinate(from.y());
 
         Cell cellBetween = getRealCell(realX + direction.x(), realY + direction.y(), maze);
         return cellBetween == null;

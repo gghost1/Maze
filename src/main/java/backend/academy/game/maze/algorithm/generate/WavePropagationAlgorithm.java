@@ -70,13 +70,13 @@ public class WavePropagationAlgorithm implements CreateMaze {
         for (Point direction : directions) {
             Point to = new Point(current.x() + direction.x(), current.y() + direction.y());
             if (isValidDestination(getRealPoint(to), width, height)) {
-                int cellState = visitedMazeCells.get(getRealY(to.y())).get(getRealX(to.x()));
+                int cellState = visitedMazeCells.get(getRealCoordinate(to.y())).get(getRealCoordinate(to.x()));
                 if (cellState == -1) {
                     connectCells(maze, current, to);
 
                     visitedMazeCells
-                        .get(getRealY(to.y()))
-                        .set(getRealX(to.x()), waveNumber);
+                        .get(getRealCoordinate(to.y()))
+                        .set(getRealCoordinate(to.x()), waveNumber);
                     if (waveNumber == 1) {
                         wave1.add(to);
                     } else if (waveNumber == 2) {

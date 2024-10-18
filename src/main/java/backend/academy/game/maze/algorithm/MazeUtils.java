@@ -6,32 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface MazeUtils {
-    default int getRealX(int x) {
-        return x * 2 + 1;
+
+    default int getRealCoordinate(int coordinate) {
+        return coordinate * 2 + 1;
     }
 
-    default int getRealY(int y) {
-        return y * 2 + 1;
-    }
-
-    default int getX(int realX) {
+    default int getCoordinate(int realX) {
         return (realX - 1) / 2;
     }
 
-    default int getY(int realY) {
-        return (realY - 1) / 2;
-    }
-
     default Point getRealPoint(Point point) {
-        return new Point(getRealX(point.x()), getRealY(point.y()));
-    }
-
-    default Point getPoint(Point realPoint) {
-        return new Point(getX(realPoint.x()), getY(realPoint.y()));
+        return new Point(getRealCoordinate(point.x()), getRealCoordinate(point.y()));
     }
 
     default Cell getCell(int x, int y, List<List<Cell>> maze) {
-        return maze.get(getRealY(y)).get(getRealX(x));
+        return maze.get(getRealCoordinate(y)).get(getRealCoordinate(x));
     }
 
     default Cell getRealCell(int x, int y, List<List<Cell>> maze) {

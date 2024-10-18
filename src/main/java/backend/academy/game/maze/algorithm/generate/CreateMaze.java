@@ -25,8 +25,8 @@ public interface CreateMaze extends MazeUtils {
         Cell startCell = getCell(start.x(), start.y(), maze);
         Cell endCell = getCell(end.x(), end.y(), maze);
         if (startCell.type() == CellType.PATH && endCell.type() == CellType.PATH) {
-            maze.get(getRealY(start.y()) - (start.y() - end.y()))
-                .set(getRealX(start.x()) - (start.x() - end.x()), null);
+            maze.get(getRealCoordinate(start.y()) - (start.y() - end.y()))
+                .set(getRealCoordinate(start.x()) - (start.x() - end.x()), null);
         }
     }
 }
