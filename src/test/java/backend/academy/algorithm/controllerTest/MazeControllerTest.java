@@ -5,9 +5,11 @@ import backend.academy.controller.MazeSolvingController;
 import backend.academy.exception.NotInitializedException;
 import backend.academy.game.maze.Maze;
 import backend.academy.game.maze.algorithm.Point;
+import backend.academy.game.maze.algorithm.findPath.AStar;
 import backend.academy.game.maze.algorithm.findPath.DeadEndFiller;
 import backend.academy.game.maze.algorithm.findPath.ShortestPathFinder;
 import backend.academy.game.maze.algorithm.generate.PrimsAlgorithm;
+import backend.academy.game.maze.algorithm.generate.WavePropagationAlgorithm;
 import backend.academy.game.process.maze.MazeGenerationProcess;
 import backend.academy.game.process.maze.MazeProcess;
 import backend.academy.game.process.maze.MazeSolvingProcess;
@@ -24,7 +26,7 @@ public class MazeControllerTest {
 
     @BeforeEach
     public void setUp() {
-        LanguageManager.getDictionary(Language.en);
+        LanguageManager.getDictionary(Language.ru);
         CustomInput.reset();
         CustomInput.getInstance(new StringReader(""));
         CustomOutput.getInstance(new OutputStreamWriter(System.out));
@@ -49,6 +51,25 @@ public class MazeControllerTest {
             new MazeSolvingController(
                 new MazeSolvingProcess(
                     new MazeProcess(maze, new MazeProcess.MazeSettings(new Point(0,0), new Point(4,4)))));
+        mazeSolvingController.execute();
+    }
+
+    @Test
+    public void executeSolvingTowPathsTest() throws NotInitializedException {
+        Maze maze = new Maze(5, 5, new WavePropagationAlgorithm(), new AStar());
+        MazeGenerationController mazeGenerationController =
+            new MazeGenerationController(
+                new MazeGenerationProcess(
+                    new MazeProcess(
+                        maze,
+                        new MazeProcess.MazeSettings(new Point(0,0), new Point(4,4)))));
+        mazeGenerationController.execute();
+        MazeSolvingController mazeSolvingController =
+            new MazeSolvingController(
+                new MazeSolvingProcess(
+                    new MazeProcess(
+                        maze,
+                        new MazeProcess.MazeSettings(new Point(0,0), new Point(4,4)))));
         mazeSolvingController.execute();
     }
 

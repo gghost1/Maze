@@ -3,6 +3,7 @@ package backend.academy.controller;
 import backend.academy.exception.ExceptionLogger;
 import backend.academy.exception.NotInitializedException;
 import backend.academy.game.maze.cell.Cell;
+import backend.academy.game.maze.cell.CellFlorType;
 import backend.academy.game.process.maze.MazeGenerationProcess;
 import backend.academy.io.CustomInput;
 import backend.academy.io.language.LanguageManager;
@@ -22,7 +23,17 @@ public class MazeGenerationController extends Executable {
     public void execute() {
         mazeGenerationProcess.generateMaze();
         output.writeOutput(dictionary.getString("The wall is displayed as ") + dictionary.getWall());
-        output.writeOutput(dictionary.getString("The path is displayed as ") + dictionary.getPath());
+        output.writeOutput(dictionary.getString("The passage is displayed as ") + dictionary.getPath());
+        for (CellFlorType type : CellFlorType.values()) {
+            output
+                .writeOutput(dictionary.getString("The ")
+                    + dictionary.getString(type.name().toLowerCase())
+                    + dictionary.getString(" is displayed as ")
+                    + type
+                    + dictionary.getString(". It slows down the player by ")
+                    + type.getValue() + dictionary.getString(" hours"));
+        }
+
         List<List<Cell>> maze = mazeGenerationProcess.mazeProcess().maze().maze();
         for (List<Cell> row : maze) {
             StringBuilder line = new StringBuilder();

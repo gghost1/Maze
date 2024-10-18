@@ -47,9 +47,9 @@ public class MazeSolvingController extends Executable {
         try {
             mazeSolvingProcess.solveMaze();
             output.writeOutput(dictionary.getString("The wall is displayed as ") + dictionary.getWall());
-            output.writeOutput(dictionary.getString("The path is displayed as ") + dictionary.getPath());
+            output.writeOutput(dictionary.getString("The passage is displayed as ") + dictionary.getPath());
             output.writeOutput(
-                dictionary.getString("The correct path from start to end is displayed as ")
+                dictionary.getString("The correct and fastest path from start to end is displayed as ")
                     + dictionary.getCorrectPath());
             List<List<Cell>> maze = mazeSolvingProcess.mazeProcess().maze().maze();
             for (int i = 0; i < maze.size(); i++) {

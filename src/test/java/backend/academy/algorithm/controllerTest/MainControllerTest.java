@@ -27,7 +27,7 @@ public class MainControllerTest {
     public void executeWrongSettingsTest() throws NotInitializedException {
         CustomOutput.getInstance(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
         CustomInput.reset();
-        CustomInput.getInstance(new StringReader("5\n5\n0 0\n6 4\n0\n0\n5\n5\n0 0\n4 4\n0\n0\n1\n1"));
+        CustomInput.getInstance(new StringReader("5\n5\n0 0\n6 4\n1\n0\n5\n5\n0 0\n4 4\n0\n0\n1\n1"));
         LanguageManager.getDictionary(Language.en);
         MainController mainController = new MainController();
         mainController.execute();

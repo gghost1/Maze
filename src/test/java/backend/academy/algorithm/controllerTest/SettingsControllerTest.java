@@ -42,7 +42,7 @@ public class SettingsControllerTest {
     public void executeWrongInputTest() throws NotInitializedException {
         CustomOutput.getInstance(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
         CustomInput.reset();
-        CustomInput.getInstance(new StringReader("a\n5\na\n5\na a\n0 0\n4 a\n4 4\npr\nrandom\n-1\na\ndead end filler"));
+        CustomInput.getInstance(new StringReader("a\n5\na\n5\na a\n0 0\n4 a\n4 4\npr\n1\n-1\na\ndead end filler"));
         LanguageManager.getDictionary(Language.en);
 
         SettingsController settingsController = new SettingsController();

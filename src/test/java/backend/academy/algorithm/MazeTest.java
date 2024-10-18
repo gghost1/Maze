@@ -1,8 +1,10 @@
 package backend.academy.algorithm;
 
+import backend.academy.exception.NotInitializedException;
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.Maze;
 import backend.academy.game.maze.algorithm.Point;
+import backend.academy.game.maze.algorithm.findPath.AStar;
 import backend.academy.game.maze.algorithm.findPath.DeadEndFiller;
 import backend.academy.game.maze.algorithm.findPath.FindMazePath;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
@@ -11,6 +13,7 @@ import backend.academy.game.maze.algorithm.generate.CreateMaze;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
 import backend.academy.game.maze.algorithm.generate.PrimsAlgorithm;
 import backend.academy.game.maze.algorithm.generate.RecursiveBacktrackerAlgorithm;
+import backend.academy.game.maze.algorithm.generate.WavePropagationAlgorithm;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
 import org.junit.jupiter.api.Test;
@@ -71,11 +74,16 @@ public class MazeTest {
     }
 
     private static Stream<CreateMaze> provideCreateMazeAlgorithms() {
-        return Stream.of(new PrimsAlgorithm(), new RecursiveBacktrackerAlgorithm());
+        return Stream.of(new PrimsAlgorithm(), new RecursiveBacktrackerAlgorithm(), new WavePropagationAlgorithm());
     }
 
     private static Stream<FindMazePath> provideFindMazePathAlgorithms() {
-        return Stream.of(new DeadEndFiller(), new ShortestPathFinder());
+        return Stream.of(new DeadEndFiller(), new ShortestPathFinder(), new AStar());
+    }
+
+    @Test
+    public void AStarTest() throws NotInitializedException {
+
     }
 
 }
