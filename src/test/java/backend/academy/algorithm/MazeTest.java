@@ -1,6 +1,5 @@
 package backend.academy.algorithm;
 
-import backend.academy.exception.NotInitializedException;
 import backend.academy.exception.PathNotFoundException;
 import backend.academy.game.maze.Maze;
 import backend.academy.game.maze.algorithm.Point;
@@ -16,12 +15,11 @@ import backend.academy.game.maze.algorithm.generate.RecursiveBacktrackerAlgorith
 import backend.academy.game.maze.algorithm.generate.WavePropagationAlgorithm;
 import backend.academy.game.maze.cell.Path;
 import backend.academy.game.maze.cell.Wall;
+import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;

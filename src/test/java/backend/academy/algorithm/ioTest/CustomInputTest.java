@@ -2,10 +2,10 @@ package backend.academy.algorithm.ioTest;
 
 import backend.academy.exception.NotInitializedException;
 import backend.academy.io.CustomInput;
-import org.junit.jupiter.api.Test;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -14,15 +14,14 @@ import backend.academy.game.process.maze.MazeGenerationProcess;
 import backend.academy.game.process.maze.MazeProcess;
 import backend.academy.game.process.maze.MazeSolvingProcess;
 import backend.academy.io.CustomInput;
-import backend.academy.io.output.CustomOutput;
 import backend.academy.io.language.Language;
 import backend.academy.io.language.LanguageManager;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import backend.academy.io.output.CustomOutput;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MazeControllerTest {
 

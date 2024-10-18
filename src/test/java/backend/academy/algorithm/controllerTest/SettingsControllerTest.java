@@ -5,14 +5,14 @@ import backend.academy.exception.NotInitializedException;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
 import backend.academy.io.CustomInput;
-import backend.academy.io.output.CustomOutput;
 import backend.academy.io.language.Language;
 import backend.academy.io.language.LanguageManager;
-import org.junit.jupiter.api.Test;
+import backend.academy.io.output.CustomOutput;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
