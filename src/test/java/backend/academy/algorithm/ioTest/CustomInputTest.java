@@ -5,6 +5,9 @@ import backend.academy.io.CustomInput;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import backend.academy.io.language.Dictionary;
+import backend.academy.io.language.Language;
+import backend.academy.io.language.LanguageManager;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,5 +37,12 @@ public class CustomInputTest {
         CustomInput.reset();
         CustomInput customInput = CustomInput.getInstance(new StringReader("test"));
         assertEquals("test", customInput.readInputLine());
+    }
+
+    @Test
+    public void dictionaryExceptionTest() {
+        Dictionary dictionary = LanguageManager.getDictionary(Language.en);
+        dictionary.getString("a");
+        
     }
 }

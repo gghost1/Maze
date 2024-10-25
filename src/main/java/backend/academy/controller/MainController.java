@@ -2,7 +2,7 @@ package backend.academy.controller;
 
 import backend.academy.exception.ExceptionLogger;
 import backend.academy.exception.NotInitializedException;
-import backend.academy.exception.UnsuccessfulPreviousProcess;
+import backend.academy.exception.UnsuccessfulPreviousProcessException;
 import backend.academy.io.CustomInput;
 import backend.academy.io.language.LanguageManager;
 import backend.academy.io.output.CustomOutput;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
                 try {
                     CoreController coreController = CoreController.create(settingsController.settingsProcess());
                     coreController.execute();
-                } catch (UnsuccessfulPreviousProcess e) {
+                } catch (UnsuccessfulPreviousProcessException e) {
                     output.writeOutput(e.previousException().getMessage());
                     output.writeOutput("Make settings again");
                     done = false;

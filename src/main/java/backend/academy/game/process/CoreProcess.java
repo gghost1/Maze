@@ -2,9 +2,9 @@ package backend.academy.game.process;
 
 import backend.academy.controller.MazeGenerationController;
 import backend.academy.controller.MazeSolvingController;
-import backend.academy.exception.IllegalSettingParameter;
+import backend.academy.exception.IllegalSettingParameterException;
 import backend.academy.exception.NotInitializedException;
-import backend.academy.exception.UnsuccessfulPreviousProcess;
+import backend.academy.exception.UnsuccessfulPreviousProcessException;
 import backend.academy.game.maze.Maze;
 import backend.academy.game.process.maze.MazeGenerationProcess;
 import backend.academy.game.process.maze.MazeProcess;
@@ -20,8 +20,8 @@ public class CoreProcess {
         throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         try {
             settingsProcess.isValid();
-        } catch (IllegalSettingParameter e) {
-            throw new UnsuccessfulPreviousProcess("", e);
+        } catch (IllegalSettingParameterException e) {
+            throw new UnsuccessfulPreviousProcessException("", e);
         }
         Maze creationMaze = new Maze(
             settingsProcess.mazeWidth(),

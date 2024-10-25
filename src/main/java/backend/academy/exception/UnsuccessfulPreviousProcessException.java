@@ -3,11 +3,11 @@ package backend.academy.exception;
 import lombok.Getter;
 
 @Getter
-public class UnsuccessfulPreviousProcess extends RuntimeException {
+public class UnsuccessfulPreviousProcessException extends RuntimeException {
 
     private final Exception previousException;
 
-    public UnsuccessfulPreviousProcess(String message, Exception e) {
+    public UnsuccessfulPreviousProcessException(String message, Exception e) {
         super(message);
         this.previousException = e;
     }

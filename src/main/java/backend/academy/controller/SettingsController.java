@@ -2,7 +2,7 @@ package backend.academy.controller;
 
 import backend.academy.StaticVariables;
 import backend.academy.exception.NotInitializedException;
-import backend.academy.exception.UnsuccessfulPreviousProcess;
+import backend.academy.exception.UnsuccessfulPreviousProcessException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
@@ -162,7 +162,7 @@ public class SettingsController extends Executable {
     }
 
     @Override
-    public void execute() throws UnsuccessfulPreviousProcess {
+    public void execute() throws UnsuccessfulPreviousProcessException {
         boolean done;
         output.writeOutput(dictionary.getString("Input a width of the maze"));
         do {

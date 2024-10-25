@@ -1,6 +1,7 @@
 package backend.academy;
 
 import backend.academy.controller.MainController;
+import backend.academy.exception.NoSuchPhraseException;
 import backend.academy.exception.NotInitializedException;
 import backend.academy.io.CustomInput;
 import backend.academy.io.language.Language;
@@ -21,9 +22,8 @@ public class Main {
         try {
             MainController mainController = new MainController();
             mainController.execute();
-        } catch (NotInitializedException e) {
+        } catch (NotInitializedException | NoSuchPhraseException e) {
             log.error("Error occurred {}", e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 }
