@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class ShortestPathFinder implements FindMazePath {
+public class ShortestPathFinder extends FindMazePath {
 
     private List<List<Cell>> maze;
 

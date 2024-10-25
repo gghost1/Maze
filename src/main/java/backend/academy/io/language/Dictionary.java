@@ -1,5 +1,6 @@
 package backend.academy.io.language;
 
+import backend.academy.exception.NoSuchPhraseException;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.List;
 
 @SuppressWarnings("MultipleStringLiterals")
 public interface Dictionary {
-    String getString(String string);
+    String getString(String string) throws NoSuchPhraseException;
 
     default List<String> getCreateAlgorithms() {
         List<String> algorithms = new ArrayList<>(List.of(

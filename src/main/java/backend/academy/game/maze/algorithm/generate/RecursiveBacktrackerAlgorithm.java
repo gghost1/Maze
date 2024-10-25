@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-public class RecursiveBacktrackerAlgorithm implements CreateMaze {
+public class RecursiveBacktrackerAlgorithm extends CreateMaze {
 
     private List<List<Integer>> utilMaze;
 

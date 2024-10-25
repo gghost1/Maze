@@ -6,7 +6,7 @@ import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.cell.Cell;
 import java.util.List;
 
-public interface FindMazePath extends MazeUtils {
-    List<Point> apply(List<List<Cell>> maze, Point start, Point end)
+public abstract class FindMazePath extends MazeUtils {
+    public abstract List<Point> apply(List<List<Cell>> maze, Point start, Point end)
         throws PathNotFoundException;
 }

@@ -6,14 +6,14 @@ public enum CellFlorType {
     TRAIL(0),
     ROAD(-1);
 
-    final int value;
+    final int effectValue;
 
-    CellFlorType(int value) {
-        this.value = value;
+    CellFlorType(int effectValue) {
+        this.effectValue = effectValue;
     }
 
-    public int getValue() {
-        return value;
+    public int getEffectValue() {
+        return effectValue;
     }
 
     @Override

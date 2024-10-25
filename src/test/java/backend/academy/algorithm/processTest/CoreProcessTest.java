@@ -1,6 +1,6 @@
 package backend.academy.algorithm.processTest;
 
-import backend.academy.exception.UnsuccessfulPreviousProcess;
+import backend.academy.exception.UnsuccessfulPreviousProcessException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
@@ -40,7 +40,7 @@ public class CoreProcessTest {
         SettingsProcess settingsProcess = getSettingsProcess();
         settingsProcess.mazeWidth(0);
         settingsProcess.mazeHeight(0);
-        assertThrows(UnsuccessfulPreviousProcess.class, () -> CoreProcess.create(settingsProcess));
+        assertThrows(UnsuccessfulPreviousProcessException.class, () -> CoreProcess.create(settingsProcess));
     }
 
     @Test

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class WavePropagationAlgorithm implements CreateMaze {
+public class WavePropagationAlgorithm extends CreateMaze {
 
     private List<List<Cell>> maze;
     private List<List<Integer>> visitedMazeCells;

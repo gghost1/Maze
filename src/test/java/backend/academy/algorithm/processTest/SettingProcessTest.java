@@ -1,6 +1,6 @@
 package backend.academy.algorithm.processTest;
 
-import backend.academy.exception.IllegalSettingParameter;
+import backend.academy.exception.IllegalSettingParameterException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
@@ -17,11 +17,11 @@ public class SettingProcessTest {
     public void sizeValidationTest() {
         SettingsProcess settingsProcess = getSettingsProcess();
         settingsProcess.mazeWidth(0);
-        assertThrows(IllegalSettingParameter.class, settingsProcess::isValid);
+        assertThrows(IllegalSettingParameterException.class, settingsProcess::isValid);
 
         settingsProcess = getSettingsProcess();
         settingsProcess.mazeHeight(0);
-        assertThrows(IllegalSettingParameter.class, settingsProcess::isValid);
+        assertThrows(IllegalSettingParameterException.class, settingsProcess::isValid);
     }
 
     @ParameterizedTest
@@ -29,7 +29,7 @@ public class SettingProcessTest {
     public void startPointValidationTest(Point point) {
         SettingsProcess settingsProcess = getSettingsProcess();
         settingsProcess.start(point);
-        assertThrows(IllegalSettingParameter.class, settingsProcess::isValid);
+        assertThrows(IllegalSettingParameterException.class, settingsProcess::isValid);
     }
 
     @ParameterizedTest
@@ -37,7 +37,7 @@ public class SettingProcessTest {
     public void endPointValidationTest(Point point) {
         SettingsProcess settingsProcess = getSettingsProcess();
         settingsProcess.end(point);
-        assertThrows(IllegalSettingParameter.class, settingsProcess::isValid);
+        assertThrows(IllegalSettingParameterException.class, settingsProcess::isValid);
     }
 
     private static Stream<Point> provideIllegalPoints() {

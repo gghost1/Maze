@@ -7,10 +7,10 @@ import backend.academy.game.maze.cell.CellType;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface CreateMaze extends MazeUtils {
-    List<List<Cell>> apply(List<List<Cell>> maze, Point start, Point end);
+public abstract class CreateMaze extends MazeUtils {
+    public abstract List<List<Cell>> apply(List<List<Cell>> maze, Point start, Point end);
 
-    default List<List<Integer>> initUtilMaze(int width, int height) {
+    protected List<List<Integer>> initUtilMaze(int width, int height) {
         List<List<Integer>> innerUtilMaze = new ArrayList<>(height);
         for (int i = 0; i < height; i++) {
             innerUtilMaze.add(new ArrayList<>());
@@ -21,7 +21,7 @@ public interface CreateMaze extends MazeUtils {
         return innerUtilMaze;
     }
 
-    default void connectCells(List<List<Cell>> maze, Point start, Point end) {
+    protected void connectCells(List<List<Cell>> maze, Point start, Point end) {
         Cell startCell = getCell(start.x(), start.y(), maze);
         Cell endCell = getCell(end.x(), end.y(), maze);
         if (startCell.type() == CellType.PATH && endCell.type() == CellType.PATH) {

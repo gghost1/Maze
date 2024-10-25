@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DeadEndFiller implements FindMazePath {
+public class DeadEndFiller extends FindMazePath {
 
     private List<List<Cell>> maze;
 

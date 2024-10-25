@@ -2,7 +2,7 @@ package backend.academy.controller;
 
 import backend.academy.StaticVariables;
 import backend.academy.exception.NotInitializedException;
-import backend.academy.exception.UnsuccessfulPreviousProcess;
+import backend.academy.exception.UnsuccessfulPreviousProcessException;
 import backend.academy.game.maze.algorithm.Point;
 import backend.academy.game.maze.algorithm.findPath.FindMazePathAlgorithm;
 import backend.academy.game.maze.algorithm.generate.CreateMazeAlgorithm;
@@ -75,23 +75,44 @@ public class SettingsController extends Executable {
         return done;
     }
 
+    private boolean setCreateMazeAlgorithmByNumber(int number) {
+        if (number == StaticVariables.RANDOM_INDEX()) {
+            settingsProcess
+                .createMazeAlgorithm(
+                    CreateMazeAlgorithm
+                        .values()[secureRandom.nextInt(CreateMazeAlgorithm.values().length)]);
+            return true;
+        } else if (number < -1 || number >= CreateMazeAlgorithm.values().length) {
+            return false;
+        } else {
+            settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.values()[number]);
+            return true;
+        }
+    }
+
+    private boolean setCreateMazeAlgorithmByString(String input) {
+        switch (input.trim().toLowerCase()) {
+            case "prims":
+                settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.PRIMS);
+                break;
+            case "recursive back tracker":
+                settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.RECURSIVE_BACKTRACKER);
+                break;
+            case "wave propagation":
+                settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.WAVE_PROPAGATION);
+                break;
+            default:
+                return false;
+        }
+        return true;
+    }
+
     private boolean setCreateMazeAlgorithm(String input) {
         boolean done;
         int number;
         try {
-            number = Integer.parseInt(input) - 1;
-            if (number == -1) {
-                settingsProcess
-                    .createMazeAlgorithm(
-                        CreateMazeAlgorithm
-                            .values()[secureRandom.nextInt(CreateMazeAlgorithm.values().length)]);
-                done = true;
-            } else if (number < -1 || number >= CreateMazeAlgorithm.values().length) {
-                done = false;
-            } else {
-                settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.values()[number]);
-                done = true;
-            }
+            number = Integer.parseInt(input) + StaticVariables.INDEX_TRANSFORMATION();
+            done = setCreateMazeAlgorithmByNumber(number);
         } catch (NumberFormatException e) {
             done = true;
             if (input.trim().toLowerCase().contains(StaticVariables.RANDOM())) {
@@ -100,41 +121,50 @@ public class SettingsController extends Executable {
                         CreateMazeAlgorithm
                             .values()[secureRandom.nextInt(CreateMazeAlgorithm.values().length)]);
             } else {
-                switch (input.trim().toLowerCase()) {
-                    case "prims":
-                        settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.PRIMS);
-                        break;
-                    case "recursive back tracker":
-                        settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.RECURSIVE_BACKTRACKER);
-                        break;
-                    case "wave propagation":
-                        settingsProcess.createMazeAlgorithm(CreateMazeAlgorithm.WAVE_PROPAGATION);
-                        break;
-                    default:
-                        done = false;
-                }
+                done = setCreateMazeAlgorithmByString(input);
             }
         }
         return done;
+    }
+
+    private boolean setSolveMazeAlgorithmByNumber(int number) {
+        if (number == StaticVariables.RANDOM_INDEX()) {
+            settingsProcess
+                .findMazePathAlgorithm(
+                    FindMazePathAlgorithm
+                        .values()[secureRandom.nextInt(FindMazePathAlgorithm.values().length)]);
+            return true;
+        } else if (number < -1 || number >= FindMazePathAlgorithm.values().length) {
+            return false;
+        } else {
+            settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.values()[number]);
+            return true;
+        }
+    }
+
+    private boolean setSolveMazeAlgorithmByString(String input) {
+        switch (input.trim().toLowerCase()) {
+            case "dead end filler":
+                settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.DEAD_END_FILLER);
+                break;
+            case "shortest path finder":
+                settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.SHORTEST_PATH_FINDER);
+                break;
+            case "a*":
+                settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.A_STAR);
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 
     private boolean setSolveMazeAlgorithm(String input) {
         boolean done;
         int number;
         try {
-            number = Integer.parseInt(input) - 1;
-            if (number == -1) {
-                settingsProcess
-                    .findMazePathAlgorithm(
-                        FindMazePathAlgorithm
-                            .values()[secureRandom.nextInt(FindMazePathAlgorithm.values().length)]);
-                done = true;
-            } else if (number < -1 || number >= FindMazePathAlgorithm.values().length) {
-                done = false;
-            } else {
-                settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.values()[number]);
-                done = true;
-            }
+            number = Integer.parseInt(input) + StaticVariables.INDEX_TRANSFORMATION();
+            done = setSolveMazeAlgorithmByNumber(number);
         } catch (NumberFormatException e) {
             done = true;
             if (input.trim().toLowerCase().contains(StaticVariables.RANDOM())) {
@@ -143,26 +173,13 @@ public class SettingsController extends Executable {
                         FindMazePathAlgorithm
                             .values()[secureRandom.nextInt(FindMazePathAlgorithm.values().length)]);
             } else {
-                switch (input.trim().toLowerCase()) {
-                    case "dead end filler":
-                        settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.DEAD_END_FILLER);
-                        break;
-                    case "shortest path finder":
-                        settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.SHORTEST_PATH_FINDER);
-                        break;
-                    case "a*":
-                        settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.A_STAR);
-                        break;
-                    default:
-                        done = false;
-                }
+                done = setSolveMazeAlgorithmByString(input);
             }
         }
         return done;
     }
 
-    @Override
-    public void execute() throws UnsuccessfulPreviousProcess {
+    private void widthInput() {
         boolean done;
         output.writeOutput(dictionary.getString("Input a width of the maze"));
         do {
@@ -171,7 +188,10 @@ public class SettingsController extends Executable {
                 output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
+    }
 
+    private void heightInput() {
+        boolean done;
         output.writeOutput(dictionary.getString("Input a height of the maze"));
         do {
             done = setMazeHeight(listener.readInputLine().trim());
@@ -179,7 +199,10 @@ public class SettingsController extends Executable {
                 output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
+    }
 
+    private void startPointInput() {
+        boolean done;
         output.writeOutput(dictionary.getString("Input a start point <x y>"));
         output.writeOutput(dictionary.getCountingStartsFrom());
         do {
@@ -193,7 +216,10 @@ public class SettingsController extends Executable {
                 output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
+    }
 
+    private void endPointInput() {
+        boolean done;
         output.writeOutput(dictionary.getString("Input an end point <x y>"));
         output.writeOutput(dictionary.getCountingStartsFrom());
         do {
@@ -207,7 +233,10 @@ public class SettingsController extends Executable {
                 output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
+    }
 
+    private void creationAlgorithmInput() {
+        boolean done;
         output
             .writeOutput(
                 dictionary
@@ -221,30 +250,47 @@ public class SettingsController extends Executable {
                 output.writeOutput(dictionary.exceptionIncorrectInput());
             }
         } while (!done);
+    }
 
+    private void solveAlgorithmDependency() {
         if (settingsProcess.createMazeAlgorithm() == CreateMazeAlgorithm.WAVE_PROPAGATION) {
             output
                 .writeOutput(CreateMazeAlgorithm.WAVE_PROPAGATION
                     + dictionary.getString(" was chosen"));
             output
                 .writeOutput(dictionary.getString("For this generation algorithm, only ")
-                + FindMazePathAlgorithm.A_STAR
-                + dictionary.getString(" is suitable"));
+                    + FindMazePathAlgorithm.A_STAR
+                    + dictionary.getString(" is suitable"));
             settingsProcess.findMazePathAlgorithm(FindMazePathAlgorithm.A_STAR);
         } else {
-            output
-                .writeOutput(
-                    dictionary
-                        .getString("Choose an algorithm for solving the maze")
-                );
-            output.writeOutput(dictionary.getInputNumberOrNameOfAlgorithm());
-            output.writeOutput(dictionary.getSolveAlgorithms(), true, "");
-            do {
-                done = setSolveMazeAlgorithm(listener.readInputLine());
-                if (!done) {
-                    output.writeOutput(dictionary.exceptionIncorrectInput());
-                }
-            } while (!done);
+            solveAlgorithmInput();
         }
+    }
+
+    private void solveAlgorithmInput() {
+        boolean done;
+        output
+            .writeOutput(
+                dictionary
+                    .getString("Choose an algorithm for solving the maze")
+            );
+        output.writeOutput(dictionary.getInputNumberOrNameOfAlgorithm());
+        output.writeOutput(dictionary.getSolveAlgorithms(), true, "");
+        do {
+            done = setSolveMazeAlgorithm(listener.readInputLine());
+            if (!done) {
+                output.writeOutput(dictionary.exceptionIncorrectInput());
+            }
+        } while (!done);
+    }
+
+    @Override
+    public void execute() throws UnsuccessfulPreviousProcessException {
+        widthInput();
+        heightInput();
+        startPointInput();
+        endPointInput();
+        creationAlgorithmInput();
+        solveAlgorithmDependency();
     }
 }
