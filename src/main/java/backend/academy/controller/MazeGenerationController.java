@@ -31,7 +31,7 @@ public class MazeGenerationController extends Executable {
                     + dictionary.getString(" is displayed as ")
                     + type
                     + dictionary.getString(". It slows down the player by ")
-                    + type.getValue() + dictionary.getString(" hours"));
+                    + type.getEffectValue() + dictionary.getString(" hours"));
         }
 
         List<List<Cell>> maze = mazeGenerationProcess.mazeProcess().maze().maze();

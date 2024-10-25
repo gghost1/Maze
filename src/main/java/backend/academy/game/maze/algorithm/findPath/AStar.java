@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import lombok.Getter;
 
-public class AStar implements FindMazePath {
+public class AStar extends FindMazePath {
 
     private List<List<Cell>> maze;
 
@@ -51,7 +51,8 @@ public class AStar implements FindMazePath {
                             .createNext(to)
                             .setDistance(
                                 directPath(to, end),
-                                current.passedDistance + ((Path) getCell(to.x(), to.y(), maze)).florType().getValue()
+                                current.passedDistance
+                                    + ((Path) getCell(to.x(), to.y(), maze)).florType().getEffectValue()
                                 ));
                 }
             }

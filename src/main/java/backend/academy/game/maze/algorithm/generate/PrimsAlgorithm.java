@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PrimsAlgorithm implements CreateMaze {
+public class PrimsAlgorithm extends CreateMaze {
 
     private List<List<Integer>> utilMaze;
     private List<Point> frontier;
