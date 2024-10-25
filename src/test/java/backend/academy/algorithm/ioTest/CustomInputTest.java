@@ -1,5 +1,6 @@
 package backend.academy.algorithm.ioTest;
 
+import backend.academy.exception.NoSuchPhraseException;
 import backend.academy.exception.NotInitializedException;
 import backend.academy.io.CustomInput;
 import java.io.InputStreamReader;
@@ -42,7 +43,6 @@ public class CustomInputTest {
     @Test
     public void dictionaryExceptionTest() {
         Dictionary dictionary = LanguageManager.getDictionary(Language.en);
-        dictionary.getString("a");
-        
+        assertThrows(NoSuchPhraseException.class, () -> dictionary.getString("test"));
     }
 }
