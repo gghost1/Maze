@@ -34,7 +34,8 @@ public class CoreController extends Executable {
         CoreProcess coreProcess,
         CustomInput customInput,
         CustomOutputWrapper customOutputWrapper,
-        Dictionary dictionary) {
+        Dictionary dictionary
+    ) {
         super(customInput, customOutputWrapper, dictionary);
         this.coreProcess = coreProcess;
     }

@@ -9,7 +9,8 @@ import backend.academy.io.output.CustomOutput;
 import java.lang.reflect.InvocationTargetException;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j public class MainController extends Executable {
+@Slf4j
+public class MainController extends Executable {
 
     public MainController() throws NotInitializedException {
         super(CustomInput.getInstance(), CustomOutput.getInstance(), LanguageManager.dictionary());

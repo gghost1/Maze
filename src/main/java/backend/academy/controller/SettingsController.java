@@ -76,7 +76,7 @@ public class SettingsController extends Executable {
     }
 
     private boolean setCreateMazeAlgorithmByNumber(int number) {
-        if (number == -1) {
+        if (number == StaticVariables.RANDOM_INDEX()) {
             settingsProcess
                 .createMazeAlgorithm(
                     CreateMazeAlgorithm
@@ -111,7 +111,7 @@ public class SettingsController extends Executable {
         boolean done;
         int number;
         try {
-            number = Integer.parseInt(input) - 1;
+            number = Integer.parseInt(input) + StaticVariables.INDEX_TRANSFORMATION();
             done = setCreateMazeAlgorithmByNumber(number);
         } catch (NumberFormatException e) {
             done = true;
@@ -128,7 +128,7 @@ public class SettingsController extends Executable {
     }
 
     private boolean setSolveMazeAlgorithmByNumber(int number) {
-        if (number == -1) {
+        if (number == StaticVariables.RANDOM_INDEX()) {
             settingsProcess
                 .findMazePathAlgorithm(
                     FindMazePathAlgorithm
@@ -163,7 +163,7 @@ public class SettingsController extends Executable {
         boolean done;
         int number;
         try {
-            number = Integer.parseInt(input) - 1;
+            number = Integer.parseInt(input) + StaticVariables.INDEX_TRANSFORMATION();
             done = setSolveMazeAlgorithmByNumber(number);
         } catch (NumberFormatException e) {
             done = true;

@@ -13,7 +13,8 @@ import java.nio.charset.StandardCharsets;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j @UtilityClass
+@Slf4j
+@UtilityClass
 public class Main {
     public static void main(String[] args) {
         CustomInput.getInstance(new InputStreamReader(System.in, StandardCharsets.UTF_8));
